@@ -7,7 +7,7 @@ while (isNaN(num) || num < 0) {
   num = parseInt(prompt("Input a positive number:"));
 }
 
-for (let i = 1; i < num; i++) {
+for (let i = 1; i <= num; i++) {
   sum += i;
 }
 
