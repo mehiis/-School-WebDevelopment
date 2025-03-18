@@ -13,7 +13,7 @@ while (prompted !== 'done') {
   }
 }
 
-if (evenNumbers > 0) {
+if (evenNumbers.length > 0) {
   document.querySelector('#target').innerHTML = `Even Numbers: ${evenNumbers}`;
 } else {
   document.querySelector('#target').innerHTML = `Even Numbers: None`;
