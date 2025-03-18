@@ -1,0 +1,42 @@
+/*
+Use external style sheet.                                                                       [X]
+Don't use default font.                                                                         [X]
+Add hover effect to the link. Also don't use default color in the link and remove underline.    [X]
+Add border and rounded corners to the image.                                                    [X]
+Every second row in the table should have a different background color.                         [X]
+The list should not have default bullet points.                                                 [x]
+*/
+
+* {
+  font-family: "Courier New", Courier, monospace;
+}
+
+a {
+  text-decoration: none;
+  color: crimson;
+}
+
+a:hover {
+  font-size: larger;
+  font-weight: bold;
+  color: red;
+}
+
+img {
+  border-radius: 7%;
+}
+
+table > tbody > tr:nth-child(2n) {
+  background-color: aquamarine;
+}
+
+li {
+  list-style: none;
+}
+
+li::before {
+  content: "@";
+  font-weight: bold;
+  color: violet;
+  display: inline-block;
+}
