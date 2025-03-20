@@ -14,3 +14,13 @@
 #mobile-menu{
   width: 80%;;
 }
+
+#mobile-menu:hover{
+  margin: auto;
+  border-radius: 0.25rem;
+  background-color: var(--secundary-color);
+}
+
+#frontpage-info{
+  font-size: 30px;
+}

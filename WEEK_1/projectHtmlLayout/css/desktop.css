@@ -12,3 +12,15 @@
 .nav-column > form{
   width: 50%;
 }
+
+
+#mobile-menu:hover{
+  margin: auto;
+  border-radius: 30rem;
+  background-color: var(--secundary-color);
+}
+
+
+#frontpage-info{
+  font-size: 60px;
+}
