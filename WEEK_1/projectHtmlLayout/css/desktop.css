@@ -1,0 +1,19 @@
+body{
+  background-color: red;
+}
+
+.nav-bar {
+  background-color: green;
+  height: 4rem;
+}
+
+#search-column{
+  margin: 0;
+  position: relative;
+  top: 1rem;
+}
+
+
+.nav-column > form{
+  width: 50%;
+}

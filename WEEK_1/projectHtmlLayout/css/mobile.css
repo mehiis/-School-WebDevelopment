@@ -1,0 +1,33 @@
+body{
+  background-color: blue;
+}
+
+.nav-bar {
+  background-color: green;
+  height: 3rem;
+}
+
+#search-column{
+  top:0.5rem;
+}
+
+
+.nav-column > form{
+  width: 93%;
+}
+
+#mobile-menu-button{
+  width: 80%;;
+}
+
+.nav-column > form > button:hover{
+  background-image: url('../img/search-icon.png');
+  background-color: white;
+  border: 0;
+  background-size: cover;
+  background-position: center;
+  width: 4rem;
+  height: auto;
+  margin: 0;
+  margin-right: 0rem;
+}
