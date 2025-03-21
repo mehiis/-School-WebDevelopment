@@ -182,15 +182,15 @@ img{
   margin-top: 1rem;
 }
 
-.star-icon{
+.heart-icon{
   height: 2rem;
   width: auto;
   margin: 0;
   padding: 0;
 }
 
-.star-icon:hover{
-  content: url("../img/star-selected.png");
+.heart-icon:hover{
+  content: url("../img/heart-selected.png");
   transition: transform .1s;
   transform: scale(1.1);
 }
