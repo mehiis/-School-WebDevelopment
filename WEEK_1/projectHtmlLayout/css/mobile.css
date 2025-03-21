@@ -5,17 +5,27 @@
 #search-column{
   top:0.5rem;
 }
-
-
+.nav-bar{
+grid-template-columns: 2fr 8fr 2fr;
+}
 .nav-column > form{
   width: 93%;
 }
 
 #mobile-menu{
+  visibility: visible;
+}
+
+#desktop-menu{
+  visibility: hidden;
+}
+
+
+#mobile-menu-img{
   width: 80%;;
 }
 
-#mobile-menu:hover{
+#mobile-menu-img:hover{
   margin: auto;
   border-radius: 0.25rem;
   background-color: var(--secundary-color);
@@ -23,4 +33,8 @@
 
 #frontpage-info{
   font-size: 30px;
+}
+
+.restaurant-name{
+  font-size: 17px;
 }

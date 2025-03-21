@@ -1,5 +1,5 @@
-@import "desktop.css" (min-width: 780px);
-@import "mobile.css" (max-width: 780px);
+@import "desktop.css" (min-width: 1150px);
+@import "mobile.css" (max-width: 1150px);
 
 @font-face {
   font-family: custom;
@@ -39,6 +39,7 @@ img{
   width: 100%;
   height: 100%;
   object-fit: contain;
+  border-radius: 0.2rem;
 }
 
 .clear{
@@ -56,7 +57,7 @@ img{
 .nav-bar {
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: 2fr 8fr 2fr;
+  /*grid-template-columns: PLATFORM-SPECIFIC (OTHER CSS FILES)*/
   grid-template-rows: 100%;
 }
 
@@ -133,11 +134,7 @@ img{
 
 #nav-logo:hover{
   transition: transform .2s;
-  transform: scale(1.2);
-}
-
-#mobile-menu{
-  width: 66%;
+  transform:  scale(1.2);
 }
 
 .content-info{
@@ -149,7 +146,7 @@ img{
 
 .centered {
   position: absolute;
-  top: 53%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 1rem;
@@ -188,15 +185,20 @@ img{
 .star-icon{
   height: 2rem;
   width: auto;
+  margin: 0;
+  padding: 0;
 }
 
 .star-icon:hover{
   content: url("../img/star-selected.png");
+  transition: transform .1s;
+  transform: scale(1.1);
 }
 
 .restaurant-name{
     padding: 0;
     margin: 0;
+    /*FONT SIZE PLATFORM SPECIFIC*/
 }
 
 .restaurant-address{

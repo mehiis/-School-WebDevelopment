@@ -15,14 +15,19 @@
         <form>
           <input
             type="text"
-            id="name"
-            name="name"
+            id="restaurant-search"
+            name="restaurant-search"
             placeholder="Etsi ravintolaa..."
           />
           <button class="search-button" type="submit"></button>   </form></div>
-      <div class="nav-column">
-        <a href="#"><img id="mobile-menu" src="./img/m-menu-icon.png" alt="Picture of a menu button." onclick="" ></a>
+      <div class="nav-column" id="mobile-menu">
+        <a href="#"><img id="mobile-menu-img" src="./img/m-menu-icon.png" alt="Picture of a menu button." onclick="" ></a>
       </div>
+
+      <div class="nav-column" id="desktop-menu">
+        <ul class="desktop-navigation"><li><a href="index.html">Etusivu</a></li><li><a href="#" onclick="">Kirjaudu</a></li><li><a href="#" onclick="">Rekisteröidy</a></li></ul>
+      </div>
+
       </div>
       <hr class="separator">
     </div>
@@ -30,15 +35,17 @@
     <div class="content">
       <div class="content-card">
         <div class="content-header">
-          <h2 class="restaurant-name">LÄHIN_RAVINTOLA</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <h2 class="restaurant-name">TÄSSÄ_LÄHIN_RAVINTOLA</h2>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
-        <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
+        <h3 class="clear">Tänään</h3>
+        <p>MAKSALAATIKKOA &lt;3, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
       </div>
+      
+      
       <div class="content-info">
         <div class="centered" id="frontpage-info">Löydä opiskelijaravintolat lähelläsi!</div>
         <img src="img/info-bg.png">
@@ -48,10 +55,10 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_1</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
@@ -60,10 +67,10 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_2</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
@@ -72,10 +79,10 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_3</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
@@ -84,10 +91,10 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_4</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
@@ -96,10 +103,10 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_5</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
@@ -108,10 +115,10 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_6</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
@@ -120,13 +127,38 @@
       <div class="content-card">
         <div class="content-header">
           <h2 class="restaurant-name">RAVINTOLA_NIMI_7</h2>
-          <a class="clear" href="#"><img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" ></a>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
         </div>
         <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
-        <h3>Tänään</h3>
+        <h3 class="clear">Tänään</h3>
         <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
         <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
         <hr class="separator">
       </div>
+      
+      <div class="content-card">
+        <div class="content-header">
+          <h2 class="restaurant-name">RAVINTOLA_NIMI_8</h2>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
+        </div>
+        <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
+        <h3 class="clear">Tänään</h3>
+        <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
+        <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
+        <hr class="separator">
+      </div>
+
+      <div class="content-card">
+        <div class="content-header">
+          <h2 class="restaurant-name">RAVINTOLA_NIMI_9</h2>
+          <img class="star-icon" src="./img/star-unselected.png" alt="Icon picture indicating that this is not selected as a favourite restautrant." onclick="" >
+        </div>
+        <p class="restaurant-address">Osoite: Testikuja 3 B 14, 00000, Testinki</p>
+        <h3 class="clear">Tänään</h3>
+        <p>KUHAMUUSI, 2.90€, L,G,R,M,S,T,S,F,G</p>
+        <button class="weekly-menu" type="submit">KATSO VIIKON RUOKALISTA</button>
+        <hr class="separator">
+      </div>
+    </div>
   </body>
 </html>

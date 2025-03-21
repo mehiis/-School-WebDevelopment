@@ -8,19 +8,56 @@
   top: 1rem;
 }
 
+ul, li{
+  text-decoration: none;
+  list-style-type: none;
+}
 
 .nav-column > form{
-  width: 50%;
+  width: 80%;
+}
+
+#mobile-menu{
+  visibility: hidden;
+}
+
+#desktop-menu{
+  visibility: visible;
 }
 
 
-#mobile-menu:hover{
-  margin: auto;
-  border-radius: 30rem;
-  background-color: var(--secundary-color);
+.nav-bar {
+  grid-template-columns: 2fr 20fr 0fr 4fr;
 }
 
+.desktop-navigation{
+  display: flex;
+  text-decoration: none;
+}
+
+.desktop-navigation > *{
+  text-decoration: none;
+}
+
+.desktop-navigation > * > *{
+  text-decoration: none;
+  list-style-type: none;
+  margin-left: 10px;
+  font-family: custom;
+  font-size: 32px;
+  color: var(--primary-color);
+}
+
+.desktop-navigation > * > *:hover{
+  color: var(--secundary-color);
+  transition: transform .2s;
+  transform: scale(1.5);
+}
 
 #frontpage-info{
   font-size: 60px;
+}
+
+.restaurant-name{
+  font-size: 24px;
 }
