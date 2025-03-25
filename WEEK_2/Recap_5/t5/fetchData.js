@@ -11,4 +11,3 @@ export async function fetchData(url, options){
     const json = await response.json(); //get body and turn to json object
     return json;
 }
-
