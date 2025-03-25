@@ -28,3 +28,21 @@ const todoList = [
 ];
 
 // add your code here
+const ul = document.querySelector("ul");
+for (const toDo of todoList) {
+  const l = document.createElement("li");
+
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.id = `todo-${toDo.id}`
+  cb.checked = toDo.completed;
+
+  const lbl = document.createElement("label");
+  lbl.innerText = toDo.task;
+  lbl.htmlFor = `todo-${toDo.id}`;
+
+  l.append(cb, lbl)
+
+  ul.insertAdjacentElement('beforeend', l);
+}
+

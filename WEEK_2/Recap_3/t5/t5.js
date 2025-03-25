@@ -771,3 +771,38 @@ const restaurants = [
 ];
 
 // your code here
+var map = L.map('map').setView([60.16952, 24.93545], 12);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 17,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+
+
+const tbl = document.querySelector("#target");
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(pos) {
+  const crd = pos.coords;
+  const myPoint = [crd.latitude, crd.longitude]
+
+  const myPointMarker = L.marker(myPoint).addTo(map);
+  myPointMarker.bindPopup("You are here.").openPopup();
+
+  for(const r of restaurants){
+    const marker = L.marker([r.location.coordinates[1], r.location.coordinates[0]]).addTo(map);
+    marker.bindPopup(`<h3>${r.name}</h3><p>${r.address}</p>`)
+  }
+}
+
+// Function to be called if an error occurs while retrieving location information
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
