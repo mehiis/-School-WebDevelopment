@@ -1,23 +1,35 @@
+//ALL AWAIT INSIDE TRY CATCH
+
 import {fetchData} from './fetchData.js'; //requires in html <link type="module>"!!!
 
-const url = 'https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants/';
+const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 const tbl = document.querySelector('#target');
 const mdl = document.querySelector('#the-modal');
 
 let restaurants = [];
 let previuousHl = null;
 
-async function main(){
-  await getAllRestaurants();
-  sortRestaurantsInAlphabet();
-  createTable();
+//FUCNTIONS
+async function getAllRestaurants() {
+  try {
+    restaurants = await fetchData(apiUrl + '/restaurants/'); //requires in html <link type="module>" if not async!!!
+  } catch (e) {
+    console.log(e);
+  }
+  console.log(restaurants);
 }
 
-main();
+async function getDailyMenu(id, language) {
+  const url = apiUrl + '/restaurants/daily/' + id + '/' + language + '/';
+  console.log(url);
 
-async function getAllRestaurants() {
-  // your code here
-  restaurants = await fetchData(url); //requires in html <link type="module>" if not async!!!
+  try {
+    return await fetchData(url); //requires in html <link type="module>" if not async!!!
+  } catch (e) {
+    console.log(e);
+  }
+  //not reccomended to add here any html code
+  //only for fetching data
 }
 
 function sortRestaurantsInAlphabet() {
@@ -34,33 +46,74 @@ function sortRestaurantsInAlphabet() {
 
 function createTable() {
   for (const r of restaurants) {
-    const tr = document.createElement('tr'); //new rivi
-    tr.addEventListener('click', function () {
+    const tr = document.createElement('tr'); //new row
+    tr.addEventListener('click', async function () {
+      try{
       previuousHl?.classList.remove('highlight');
       mdl.innerHTML = '';
 
+      const coursesResponse = await getDailyMenu(r._id, 'fi');
+
+      const menuHtml = createMenuHtml(coursesResponse.courses);
+
       tr.classList.add('highlight');
 
-      const nameP = document.createElement('h3');
-      nameP.innerText = r.name;
-      mdl.append(nameP);
+      createModalHtlm(r, mdl);
 
+      mdl.insertAdjacentHTML('beforeend', menuHtml);
       mdl.showModal();
 
       previuousHl = tr;
+      } catch{
+        mdl.insertAdjacentHTML('beforeend', "<strong>MENU NOT AVAILABLE.</strong>");
+        mdl.showModal();
+      }
     });
 
-    const nametd = document.createElement('td'); //name cell
-
-    nametd.innerText = r.name;
-
-    const addressTd = document.createElement('td');
-    addressTd.innerText = r.address;
-
-    const cityTd = document.createElement('td');
-    cityTd.innerText = r.city;
-
-    tr.append(nametd, addressTd, cityTd);
+    createRestaurantCells(r, tr);
     tbl.append(tr);
   }
 }
+
+function createRestaurantCells(r, tr) {
+  const nametd = document.createElement('td'); //name cell
+  nametd.innerText = r.name;
+
+  const addressTd = document.createElement('td');
+  addressTd.innerText = r.address;
+
+  const cityTd = document.createElement('td');
+  cityTd.innerText = r.city;
+
+  tr.append(nametd, addressTd, cityTd);
+}
+
+function createModalHtlm(r, mdl) {
+  const nameP = document.createElement('h3');
+  nameP.innerText = r.name;
+  mdl.append(nameP);
+}
+
+function createMenuHtml(courses) {
+  let html = '';
+
+  for (const course of courses) {
+    html += `
+    <article class="course">
+        <p><strong>${course.name}</strong></p>
+        <p>Hinta: ${course.price}</p>
+        <p>Allergeenit: ${course.diets}</p><br>
+    </article>`;
+  }
+
+  return html;
+}
+
+//MAIN FUCNTION -> Better to be in the end.
+async function main() {
+  await getAllRestaurants();
+  sortRestaurantsInAlphabet();
+  createTable();
+}
+
+main(); //EXECUTE!
