@@ -795,7 +795,17 @@ for (const r of restaurants) {
 
     const nameP = document.createElement("h3");
     nameP.innerText = r.name;
-    mdl.append(nameP);
+
+    const companyP = document.createElement("p");
+    companyP.innerText = r.company;
+
+    const addressP = document.createElement("p");
+    addressP.innerText = `${r.postalCode}, ${r.city}, ${r.address}`;
+
+    const phoneNumberP = document.createElement("p");
+    phoneNumberP.innerText = "Phone number: " + r.phone;
+
+    mdl.append(nameP, companyP, addressP, phoneNumberP);
 
     mdl.showModal();
 
