@@ -223,11 +223,9 @@ $RECYCLE.BIN/
 WEEK_1/Test
 WEEK_2/Recap_3/tests
 
-.editorconfig
-.prettierrc
-eslint.config.mjs
-package-lock.json
-package.json
-.vscode
-
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,windows,macos,node
+#.editorconfig
+#.prettierrc
+#eslint.config.mjs
+#package-lock.json
+#package.json
+#.vscode

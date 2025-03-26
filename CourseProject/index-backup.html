@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opiskelijan lounastutka</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo.png" />
+    <link rel="stylesheet" href="./css/main.css" type="text/css" />
+  </head>
+  <body>
+    <header class="menu">
+      <div class="nav-bar">
+        <div class="nav-column">
+          <a href="index.html"
+            ><img
+              id="nav-logo"
+              src="./img/logo.png"
+              alt="Picture of a company logo."
+          /></a>
+        </div>
+        <div class="nav-column" id="search-column">
+          <form>
+            <input
+              type="text"
+              id="restaurant-search"
+              name="restaurant-search"
+              placeholder="Etsi ravintolaa..."
+            />
+            <button class="search-button" type="submit"></button>
+          </form>
+        </div>
+        <div class="nav-column" id="mobile-menu">
+          <a href="#"
+            ><img
+              id="mobile-menu-img"
+              src="./img/m-menu-icon.png"
+              alt="Picture of a menu button."
+              onclick=""
+          /></a>
+        </div>
+
+        <div class="nav-column" id="desktop-menu">
+          <ul class="desktop-navigation">
+            <li><a href="index.html">Etusivu</a></li>
+            <li><a href="#" onclick="">Kirjaudu</a></li>
+            <li><a href="#" onclick="">Rekisteröidy</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="separator" />
+    </header>
+
+    <main class="content">
+      <div class="content-card">
+        <div class="content-header">
+          <h2 class="restaurant-name">TÄSSÄ_LÄHIN_RAVINTOLA</h2>
+          <img
+            class="heart-icon"
+            src="./img/heart-unselected.png"
+            alt="Icon picture indicating that this is not selected as a favourite restautrant."
+            onclick=""
+          />
+        </div>
+        <p class="restaurant-address">
+          Osoite: Testikuja 3 B 14, 00000, Testinki
+        </p>
+        <h3 class="clear">Tänään</h3>
+        <p>MAKSALAATIKKOA &lt;3, 2.90€, L,G,R,M,S,T,S,F,G</p>
+        <button class="weekly-menu" type="submit">
+          KATSO VIIKON RUOKALISTA
+        </button>
+        <hr class="separator" />
+      </div>
+
+      <div class="content-info">
+        <div class="centered" id="frontpage-info">
+          Löydä opiskelijaravintolat lähelläsi!
+        </div>
+        <img src="img/info-bg.png" />
+        <hr class="separator" />
+      </div>
+
+      <div class="content-card">
+        <div class="content-header">
+          <h2 class="restaurant-name">TÄSSÄ_LÄHIN_RAVINTOLA</h2>
+          <img
+            class="heart-icon"
+            src="./img/heart-unselected.png"
+            alt="Icon picture indicating that this is not selected as a favourite restautrant."
+            onclick=""
+          />
+        </div>
+        <p class="restaurant-address">
+          Osoite: Testikuja 3 B 14, 00000, Testinki
+        </p>
+        <h3 class="clear">Tänään</h3>
+        <p>MAKSALAATIKKOA &lt;3, 2.90€, L,G,R,M,S,T,S,F,G</p>
+        <button class="weekly-menu" type="submit">
+          KATSO VIIKON RUOKALISTA
+        </button>
+        <hr class="separator" />
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Opiskelijan lounastutka&#8482; | &copy; Niko Mehiläinen 2025</p>
+    </footer>
+  </body>
+</html>
