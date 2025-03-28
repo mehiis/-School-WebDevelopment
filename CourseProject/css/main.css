@@ -273,3 +273,10 @@ img {
 #modal-content {
   font-family: custom;
 }
+
+
+#week-menu-header{
+  font-family: custom;
+  color: var(--primary-color);
+  font-size: xx-large;
+}

@@ -20,7 +20,7 @@ async function createContentCard(restaurant) {
 
   const restaurantName = document.createElement('h2');
   restaurantName.classList.add('restaurant-name');
-  restaurantName.innerText = restaurant.name;
+  restaurantName.innerText = `${restaurant.name} (${restaurant.company})`;
 
   const heartButton = document.createElement('button');
   heartButton.classList.add('heart-button');
@@ -42,7 +42,7 @@ async function createContentCard(restaurant) {
 
   const restaurantAddress = document.createElement('p');
   restaurantAddress.classList.add('restaurant-address');
-  restaurantAddress.innerText = `${restaurant.address}, ${restaurant.postalCode}, ${restaurant.city}`;
+  restaurantAddress.innerHTML = `${restaurant.address}, ${restaurant.postalCode}, ${restaurant.city} <br> ${restaurant.phone}`;
 
   const todayHeader = document.createElement('h3');
   todayHeader.classList.add('clear');
@@ -145,16 +145,51 @@ function closeModal() {
   mdl.close();
 }
 
-function displayWeeklyMenu(restaurant) {
+async function displayWeeklyMenu(restaurant) {
   const weeklyMenu = document.querySelector('#weekly-menu');
+  weeklyMenu.innerHTML = "";
+
+  const weeklyMenuHeader = document.createElement("h2");
+  weeklyMenuHeader.id = "week-menu-header";
+  weeklyMenuHeader.innerText = `${restaurant.name.toUpperCase()} - VIIKON RUOKALISTA`;
+  weeklyMenu.append(weeklyMenuHeader);
+
   weeklyMenu.style.display = 'block';
 
-  const weekMenu = data.getWeeklyMenu(restaurant, "fi");
+  try{
+  const menuOfWeekPromise = await data.getWeeklyMenu(restaurant._id, "fi");
+  const menuOfWeek = menuOfWeekPromise.days;
 
-  for(const menu of weekMenu){
-    //JATKA TÄTÄ!!!!!!!!!!
-    console.log(menu);
+  for(const menu of menuOfWeek){
+    const date =  document.createElement("h4");
+    date.innerText = menu.date.toUpperCase();
+
+    const food = document.createElement("p");
+    for(const item of menu.courses){
+      let checkedPrice = item.price;
+      let checkedDiets = item.diets;
+
+      if (checkedPrice == undefined) {
+        checkedPrice =
+          '<i><span style="color: #ff0000">(Hinta ei saatavilla.)</span></i>';
+      }
+
+      if(checkedDiets == undefined){
+        checkedDiets =
+        '<i><span style="color: #ff0000">(Allergeenit ei saatavilla.)</span></i>';
+      }
+
+      food.innerHTML += `${item.name}, ${checkedPrice}, <strong>${checkedDiets}</strong> <br> <br>`;
+    }
+
+    weeklyMenu.append(date, food);
   }
+} catch{
+    const notFound =  document.createElement("h4");
+    notFound.innerText = "Viikon ruokalistaa ei löytynyt. :("
+
+    weeklyMenu.append(notFound);
+}
 
 }
 
