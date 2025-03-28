@@ -9,6 +9,8 @@ async function main() {
   data.updateRestaurantsToLoad();
 
   components.createCards(data.listOfRestaurantsToShow);
+
+  navigator.geolocation.getCurrentPosition(data.navSuccess, data.navError, data.navOptions);
 }
 
 main();

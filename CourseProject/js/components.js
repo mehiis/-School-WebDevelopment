@@ -101,7 +101,7 @@ async function createContentCard(restaurant) {
     event.preventDefault();
 
     openModal();
-    displayMap();
+    displayMap(restaurant.location);
   });
 
   buttonDiv.append(weeklyMenuButton, openMapLocationButton);
@@ -193,12 +193,16 @@ async function displayWeeklyMenu(restaurant) {
 
 }
 
-function displayMap() {
+function displayMap(location) {
   //SET HERE WHAT RESTAURANTS TO DISPLAY AND WHERE YOU ARE TMS YMS.
+  const mapItem = document.querySelector('#map');
+  mapItem.style.display = 'block';
 
-  const map = document.querySelector('#map');
-  map.style.display = 'block';
+  utils.mapClearMarkers();
 
+  const fixedLocation = [location.coordinates[1], location.coordinates[0]];
+  utils.mapAddRestaurantToMap(fixedLocation); //add restaurant to the map
+  //PLAYER PIN POINT ADDED IN THE MAIN!!
   utils.mapInit();
 }
 

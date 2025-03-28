@@ -1,4 +1,6 @@
 let mapInitialized = false;
+const map     = L.map('map').setView([60.17, 24.945831], 12);
+let layerGroup = L.layerGroup();
 
 async function fetchData(url, options) {
   const response = await fetch(url, options);
@@ -20,8 +22,6 @@ function distance(startPoint, endPoint) {
 
 function mapInit() {
   if (!mapInitialized) {
-    var map = L.map('map').setView([60.17, 24.945831], 12);
-
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 16,
       minZoom: 4,
@@ -33,4 +33,29 @@ function mapInit() {
   }
 }
 
-export default {fetchData, distance, mapInit};
+function mapAddRestaurantToMap(location){
+  if (map.hasLayer(layerGroup)) {
+
+    // Clear layer group
+    layerGroup.clearLayers();
+
+    // Or you may remove entire layer from the map
+    // This will help you reduce rendering issues
+    map.removeLayer(layerGroup);
+}
+
+  const marker = L.marker(location).addTo(map);
+  marker.addTo(layerGroup);
+
+  map.addLayer(layerGroup);
+}
+
+function mapAddUserToMap(location){
+  L.marker(location).addTo(map);
+}
+
+function mapClearMarkers(){
+  layerGroup.clearLayers();
+}
+
+export default {fetchData, distance, mapInit, mapAddRestaurantToMap, mapClearMarkers, mapAddUserToMap};

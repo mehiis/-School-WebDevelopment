@@ -7,6 +7,8 @@ let listOfaLLRestaurants = [];
 let listOfRestaurantsToShow = [];
 let amountOfRestaurantsToLoad = 10;
 
+let userLocation;
+
 async function fetchAllRestaurants() {
   try {
     listOfaLLRestaurants = await utils.fetchData(`${apiUrl}/restaurants/`);
@@ -43,6 +45,27 @@ async function getWeeklyMenu(id, language) {
   );
 }
 
+//PLAYER LOCATION START
+const navOptions = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function navSuccess(pos) {
+  const crd = pos.coords;
+  userLocation = [crd.latitude, crd.longitude];
+  utils.mapAddUserToMap(userLocation);
+
+  console.log("User coordiantes: " + userLocation);
+}
+
+// Function to be called if an error occurs while retrieving location information
+function navError(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+//PLAYER LOCATION END
+
 export default {
   listOfaLLRestaurants,
   listOfRestaurantsToShow,
@@ -50,5 +73,11 @@ export default {
   restaurantAmountToLoad,
   updateRestaurantsToLoad,
   getDailyMenu,
-  getWeeklyMenu
+  getWeeklyMenu,
+  navError,
+  navSuccess,
+  navOptions,
+
 };
+
+
