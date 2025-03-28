@@ -1,4 +1,5 @@
 'use strict';
+import components from './components.js';
 import utils from './utils.js';
 
 const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
@@ -45,11 +46,25 @@ async function getWeeklyMenu(id, language) {
   );
 }
 
+function filterWithWord(word) {
+  listOfRestaurantsToShow = listOfaLLRestaurants.filter((r) => {
+    return (
+      r.city.toLowerCase().includes(word.toLowerCase()) ||
+      r.name.toLowerCase().includes(word.toLowerCase()) ||
+      r.postalCode.toLowerCase().includes(word.toLowerCase()) ||
+      r.company.toLowerCase().includes(word.toLowerCase()) ||
+      r.address.toLowerCase().includes(word.toLowerCase())
+    );
+  });
+
+  components.createCards(listOfRestaurantsToShow);
+}
+
 //PLAYER LOCATION START
 const navOptions = {
   enableHighAccuracy: true,
   timeout: 5000,
-  maximumAge: 0
+  maximumAge: 0,
 };
 
 function navSuccess(pos) {
@@ -57,7 +72,7 @@ function navSuccess(pos) {
   userLocation = [crd.latitude, crd.longitude];
   utils.mapAddUserToMap(userLocation);
 
-  console.log("User coordiantes: " + userLocation);
+  console.log('User coordiantes: ' + userLocation);
 }
 
 // Function to be called if an error occurs while retrieving location information
@@ -76,8 +91,6 @@ export default {
   getWeeklyMenu,
   navError,
   navSuccess,
+  filterWithWord,
   navOptions,
-
 };
-
-

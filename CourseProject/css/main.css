@@ -129,6 +129,7 @@ img {
   width: 85%;
   margin: auto;
   min-height: 92%;
+  padding-top: 1.5rem;
 }
 
 #nav-logo {
@@ -274,8 +275,7 @@ img {
   font-family: custom;
 }
 
-
-#week-menu-header{
+#week-menu-header {
   font-family: custom;
   color: var(--primary-color);
   font-size: xx-large;

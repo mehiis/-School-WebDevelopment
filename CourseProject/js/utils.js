@@ -1,5 +1,5 @@
 let mapInitialized = false;
-const map     = L.map('map').setView([60.17, 24.945831], 12);
+const map = L.map('map').setView([60.17, 24.945831], 12);
 let layerGroup = L.layerGroup();
 
 async function fetchData(url, options) {
@@ -33,29 +33,37 @@ function mapInit() {
   }
 }
 
-function mapAddRestaurantToMap(location){
+function mapAddRestaurantToMap(location) {
   if (map.hasLayer(layerGroup)) {
-
     // Clear layer group
     layerGroup.clearLayers();
 
     // Or you may remove entire layer from the map
     // This will help you reduce rendering issues
     map.removeLayer(layerGroup);
-}
+  }
 
   const marker = L.marker(location).addTo(map);
   marker.addTo(layerGroup);
+  map.invalidateSize();
 
   map.addLayer(layerGroup);
 }
 
-function mapAddUserToMap(location){
+function mapAddUserToMap(location) {
   L.marker(location).addTo(map);
+  map.invalidateSize();
 }
 
-function mapClearMarkers(){
+function mapClearMarkers() {
   layerGroup.clearLayers();
 }
 
-export default {fetchData, distance, mapInit, mapAddRestaurantToMap, mapClearMarkers, mapAddUserToMap};
+export default {
+  fetchData,
+  distance,
+  mapInit,
+  mapAddRestaurantToMap,
+  mapClearMarkers,
+  mapAddUserToMap,
+};

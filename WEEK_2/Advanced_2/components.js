@@ -9,21 +9,22 @@ const mdl = document.querySelector('#the-modal');
 let restaurants = [];
 let allRestaurantsSaved = [];
 
-const filterbutton = document.querySelector("#filter");
-filterbutton.addEventListener("click", (event) => {
-    event.preventDefault();
+const filterbutton = document.querySelector('#filter');
+filterbutton.addEventListener('click', (event) => {
+  event.preventDefault();
 
-    const filterValue = document.querySelector("#restaurant-list");
-    const currentList = document.querySelector("#target");
-    currentList.innerHTML =
-    `<tr>
+  const filterValue = document.querySelector('#restaurant-list');
+  const currentList = document.querySelector('#target');
+  currentList.innerHTML = `<tr>
       <th>Name</th>
       <th>Address</th>
       <th>City</th>
     </tr>`;
 
-    restaurants = allRestaurantsSaved.filter(r => r.company.toLowerCase().includes(filterValue.value.toLowerCase()));
-    createTable();
+  restaurants = allRestaurantsSaved.filter((r) =>
+    r.company.toLowerCase().includes(filterValue.value.toLowerCase())
+  );
+  createTable();
 });
 
 let previuousHl = null;
