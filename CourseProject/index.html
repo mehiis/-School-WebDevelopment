@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Opiskelijan lounastutka</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <link rel="icon" type="image/x-icon" href="./img/logo.png" />
     <link rel="stylesheet" href="./css/main.css" type="text/css" />
     <script src="./js/script.js" type="module"></script>
@@ -25,7 +36,7 @@
               type="text"
               id="restaurant-search"
               name="restaurant-search"
-              placeholder="Etsi ravintolaa..."
+              placeholder="Etsi ravintola..."
             />
             <button class="search-button" type="submit"></button>
           </form>
@@ -51,31 +62,20 @@
       <hr class="separator" />
     </header>
 
-    <main class="content">
-      <article class="content-card">
-        <div class="content-header">
-          <h2 class="restaurant-name">TÄSSÄ_LÄHIN_RAVINTOLA</h2>
-          <img
-            class="heart-icon"
-            src="./img/heart-unselected.png"
-            alt="Icon picture indicating that this is not selected as a favourite restautrant."
-            onclick=""
-          />
-        </div>
-        <p class="restaurant-address">
-          Osoite: Testikuja 3 B 14, 00000, Testinki
-        </p>
-        <h3 class="clear">Tänään</h3>
-        <p>MAKSALAATIKKOA &lt;3, 2.90€, L,G,R,M,S,T,S,F,G</p>
-        <button class="weekly-menu" type="submit">
-          KATSO VIIKON RUOKALISTA
-        </button>
-        <hr class="separator" />
-      </article>
-    </main>
+    <main id="content"></main>
 
     <footer class="footer">
       <p>Opiskelijan lounastutka&#8482; | &copy; Niko Mehiläinen 2025</p>
     </footer>
+
+    <dialog id="modale">
+      <div id="modal-header">
+        <button class="close-modal-button">X</button>
+      </div>
+      <div id="modal-content">
+        <div id="map"></div>
+        <div id="weekly-menu"></div>
+      </div>
+    </dialog>
   </body>
 </html>

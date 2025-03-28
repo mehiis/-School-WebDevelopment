@@ -35,8 +35,9 @@ body {
   background-color: var(--white-color);
 }
 
-main {
-  padding-top: 3%;
+#map {
+  height: 26rem;
+  border-radius: 0.5rem;
 }
 
 img {
@@ -124,7 +125,7 @@ img {
   border: 0;
 }
 
-.content {
+#content {
   width: 85%;
   margin: auto;
   min-height: 92%;
@@ -185,6 +186,13 @@ img {
   margin-top: 1rem;
 }
 
+.heart-button {
+  background-color: transparent;
+  border-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
 .heart-icon {
   height: 2rem;
   width: auto;
@@ -209,17 +217,18 @@ img {
   margin-bottom: 2rem;
 }
 
-.weekly-menu {
+.content-card-button {
   border: 0;
   background-color: var(--primary-color);
   color: var(--white-color);
   font-size: 1.1rem;
   font-family: custom;
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 0.7rem;
+  margin-right: 8px;
 }
 
-.weekly-menu:hover {
+.content-card-button:hover {
   background-color: var(--secundary-color);
   transition: transform 0.2s;
   transform: scale(1.03);
@@ -236,4 +245,31 @@ img {
   padding: 1.5rem;
   margin: 0;
   color: var(--white-color);
+}
+
+#modale {
+  border-color: transparent;
+  border-radius: 0.5rem;
+
+  width: 90%;
+  height: 90%;
+
+  max-width: 600px;
+  min-width: 375px;
+}
+
+#modal-header {
+  justify-content: right;
+  text-align: right;
+}
+
+.close-modal-button {
+  background-color: transparent;
+  border-color: transparent;
+  font-family: custom;
+  font-size: 2rem;
+}
+
+#modal-content {
+  font-family: custom;
 }
