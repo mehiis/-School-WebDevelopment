@@ -36,7 +36,7 @@ body {
 }
 
 #map {
-  height: 26rem;
+  height: 70vh;
   border-radius: 0.5rem;
 }
 
@@ -252,9 +252,9 @@ img {
   border-radius: 0.5rem;
 
   width: 90%;
-  height: 90%;
+  height: fit-content;
 
-  max-width: 600px;
+  max-width: 50%;
   min-width: 375px;
 }
 
@@ -263,7 +263,7 @@ img {
   text-align: right;
 }
 
-.close-modal-button {
+#close-modal-button {
   background-color: transparent;
   border-color: transparent;
   font-family: custom;

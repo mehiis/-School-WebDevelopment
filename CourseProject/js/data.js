@@ -30,9 +30,16 @@ function updateRestaurantsToLoad() {
 }
 
 async function getDailyMenu(id, language) {
-  //Errors in when called in './js/components.js' @ createContentCards() function.
+  //Errors catched in when called in './js/components.js' @ createContentCards() function.
   return await utils.fetchData(
     `${apiUrl}/restaurants/daily/${id}/${language}/`
+  );
+}
+
+async function getWeeklyMenu(id, language) {
+  //Errors catched in when called in './js/components.js' @ displayWeeklyMenu() function.
+  return await utils.fetchData(
+    `${apiUrl}/restaurants/weekly/${id}/${language}/`
   );
 }
 
@@ -43,4 +50,5 @@ export default {
   restaurantAmountToLoad,
   updateRestaurantsToLoad,
   getDailyMenu,
+  getWeeklyMenu
 };

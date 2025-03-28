@@ -1,5 +1,4 @@
 'use strict';
-
 import data from './data.js';
 import utils from './utils.js';
 
@@ -64,13 +63,19 @@ async function createContentCard(restaurant) {
 
   for (const {name, price, diets} of todayMenuItems) {
     let checkedPrice = price;
+    let checkDiets = diets;
 
     if (checkedPrice == undefined) {
       checkedPrice =
         '<i><span style="color: #ff0000">(Hinta ei saatavilla.)</span></i>';
     }
 
-    todayInMenu.innerHTML += `${name}  ${checkedPrice}  <strong>${diets}</strong><br><br>`;
+    if(checkDiets == undefined){
+      checkDiets =
+      '<i><span style="color: #ff0000">(Allergeenit ei saatavilla.)</span></i>';
+    }
+
+    todayInMenu.innerHTML += `${name}  ${checkedPrice}  <strong>${checkDiets}</strong><br><br>`;
   }
 
   if (todayMenuItems[0] == null) {
@@ -86,7 +91,7 @@ async function createContentCard(restaurant) {
   weeklyMenuButton.addEventListener('click', (event) => {
     event.preventDefault();
     openModal();
-    displayWeeklyMenu();
+    displayWeeklyMenu(restaurant);
   });
 
   const openMapLocationButton = document.createElement('button');
@@ -125,18 +130,32 @@ function hideModalContent() {
 function openModal() {
   hideModalContent();
   const mdl = document.querySelector('#modale');
+  const closeButton = document.querySelector("#close-modal-button");
+  closeButton.addEventListener('click', (event) =>{
+    event.preventDefault();
+    closeModal();
+  });
+
   mdl.showModal();
 }
 
 function closeModal() {
   hideModalContent();
   const mdl = document.querySelector('#modale');
-  mdl.showModal();
+  mdl.close();
 }
 
-function displayWeeklyMenu() {
+function displayWeeklyMenu(restaurant) {
   const weeklyMenu = document.querySelector('#weekly-menu');
   weeklyMenu.style.display = 'block';
+
+  const weekMenu = data.getWeeklyMenu(restaurant, "fi");
+
+  for(const menu of weekMenu){
+    //JATKA TÄTÄ!!!!!!!!!!
+    console.log(menu);
+  }
+
 }
 
 function displayMap() {

@@ -10,6 +10,16 @@
 </head>
 
 <body>
+  <form>
+    <label for="restaurant-list">Filter by: </label>
+    <select name="restaurant-list" id="restaurant-list">
+      <option value="Sodexo">Sodexo</option>
+      <option value="Compass Group">Compass Group</option>
+    </select>
+    <br><br>
+    <input id="filter" type="submit" value="Filter">
+  </form>
+
   <h1>Restaurants</h1>
   <table id="target">
     <tr>
@@ -17,7 +27,6 @@
       <th>Address</th>
       <th>City</th>
     </tr>
-    <!-- add restaurants here -->
   </table>
   <!-- modal -->
   <dialog id="the-modal">
