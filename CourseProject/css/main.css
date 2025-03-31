@@ -83,7 +83,7 @@ img {
   /*width set platform specific*/
 }
 
-.nav-column > form > input {
+.nav-column > form > input, #sign-in > form > input, #sign-up > form > input {
   border-radius: 1rem;
   border-color: transparent;
   background-color: var(--gray-color);
@@ -218,7 +218,7 @@ img {
   margin-bottom: 2rem;
 }
 
-.content-card-button {
+.content-card-button, #sign-in > form > button, #sign-up > form > button  {
   border: 0;
   background-color: var(--primary-color);
   color: var(--white-color);
@@ -229,7 +229,7 @@ img {
   margin-right: 8px;
 }
 
-.content-card-button:hover {
+.content-card-button:hover, #sign-in > form > button:hover, #sign-up > form > button:hover {
   background-color: var(--secundary-color);
   transition: transform 0.2s;
   transform: scale(1.03);
@@ -267,8 +267,16 @@ img {
 #close-modal-button {
   background-color: transparent;
   border-color: transparent;
-  font-family: custom;
+  font-family:Arial, Helvetica, sans-serif;
   font-size: 2rem;
+  color: var(--primary-color);
+  font-weight: bolder;
+}
+
+#close-modal-button:hover {
+  color: var(--secundary-color);
+  transition: transform 0.1s;
+  transform: scale(1.1);
 }
 
 #modal-content {
@@ -280,3 +288,25 @@ img {
   color: var(--primary-color);
   font-size: xx-large;
 }
+
+.nav-button{
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#sign-in > *, #sign-up > *{
+display: grid;
+justify-content: center;
+margin-bottom: 3rem;
+font-family: custom;
+}
+
+#sign-in > h2, #sign-up > h2{
+  color: var(--primary-color);
+  font-size: 2.3rem;
+  }
+
+#sign-in > form > input, #sign-up > form > input{ margin-bottom: 2rem; }
+
+
+

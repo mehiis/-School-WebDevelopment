@@ -8,7 +8,7 @@
   top: 1rem;
 }
 
-ul,
+ul,desktop-navigation
 li {
   text-decoration: none;
   list-style-type: none;
@@ -39,7 +39,7 @@ li {
   text-decoration: none;
 }
 
-.desktop-navigation > * > * {
+.desktop-navigation > * > * > *, .desktop-navigation > * > * {
   text-decoration: none;
   list-style-type: none;
   margin-left: 10px;
@@ -48,10 +48,10 @@ li {
   color: var(--primary-color);
 }
 
-.desktop-navigation > * > *:hover {
+.desktop-navigation > * > *:hover, .desktop-navigation > * > * >*:hover {
   color: var(--secundary-color);
-  transition: transform 0.2s;
-  transform: scale(1.5);
+  transition: transform 0.4s;
+  transform: scale(1.1);
 }
 
 #frontpage-info {

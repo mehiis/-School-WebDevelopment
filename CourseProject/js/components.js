@@ -2,7 +2,9 @@
 import data from './data.js';
 import utils from './utils.js';
 
-let previousSearchWord;
+let previousSearchWord = "";
+
+//THE FUNCTIONALITY OF THE SEARCH BAR, FILTERING LOGIC WHEN WRITTEN
 const searchButton = document.querySelector('.search-button');
 searchButton.addEventListener('click', (event) => {
   event.preventDefault();
@@ -14,12 +16,48 @@ searchButton.addEventListener('click', (event) => {
   }
 });
 
+//DISPLAY THE !SIGN IN! MODALE
+const signInButton = document.querySelector("#sign-in-button");
+signInButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  openModal();
+  displaySignIn();
+});
+
+
+//DISPLAY THE !SIGN UP! MODALE
+const signUpButton = document.querySelector("#sign-up-button");
+signUpButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  openModal();
+  displaySignUp();
+});
+
 async function createCards(listOfRestaurants) {
   const content = document.querySelector('#content');
   content.innerHTML = '';
 
-  for (const restaurant of listOfRestaurants) {
-    await createContentCard(restaurant);
+  //CHECK IF THE LIST IS EMPTY, THEN DISPLAY ERROR MESSAGE, ELSE LOOP THROUGHT EVERY RESTAURANT AND CREATE CONTENT CARDS.
+  if(listOfRestaurants.length === 0){
+    const article = document.createElement('article');
+    article.classList.add('content-card');
+
+    const cardHeader = document.createElement('div');
+    cardHeader.classList.add('content-header');
+    article.append(cardHeader);
+
+    const search = document.querySelector('#restaurant-search');
+    const errorText = document.createElement('p');
+    errorText.innerText = `Hakusanalla "${search.value}" ei löytynyt yhtään ravintolaa...`;
+    cardHeader.append(errorText);
+
+    content.append(
+      article
+    );
+  } else{
+    for (const restaurant of listOfRestaurants) {
+      await createContentCard(restaurant);
+    }
   }
 }
 
@@ -140,6 +178,12 @@ function hideModalContent() {
 
   const weeklyMenu = document.querySelector('#weekly-menu');
   weeklyMenu.style.display = 'none';
+
+  const signIn = document.querySelector('#sign-in');
+  signIn.style.display = 'none';
+
+  const signUp = document.querySelector('#sign-up');
+  signUp.style.display = 'none';
 }
 
 function openModal() {
@@ -218,6 +262,16 @@ function displayMap(location) {
   utils.mapAddRestaurantToMap(fixedLocation); //add restaurant to the map
   //PLAYER PIN POINT ADDED IN THE MAIN!!
   utils.mapInit();
+}
+
+function displaySignIn(){
+  const signIn = document.querySelector('#sign-in');
+  signIn.style.display = 'block';
+}
+
+function displaySignUp(){
+  const signUp = document.querySelector('#sign-up');
+  signUp.style.display = 'block';
 }
 
 export default {createCards};
