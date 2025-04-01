@@ -223,9 +223,11 @@ $RECYCLE.BIN/
 WEEK_1/Test
 WEEK_2/Recap_3/tests
 WEEK_3/Assignment_3/uploads/*
+WEEK_3/Assignment_4/uploads/*
 
 #CUSTOM KEEP
 !WEEK_3/Assignment_3/uploads/.gitkeep
+!WEEK_3/Assignment_4/uploads/.gitkeep
 
 #.editorconfig
 #.prettierrc
