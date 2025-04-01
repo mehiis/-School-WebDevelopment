@@ -17,7 +17,7 @@ const createThumbnail = async (req, res, next) => {
 
   await sharp(req.file.path)
     .resize(100, 100)
-    .toFile(`${req.file.path}_thumb.${extension}`); //tofile is a promise (await)
+    .toFile(`${req.file.path}_thumb.${extension}`); //tofile is a promise
 
   next();
 };
