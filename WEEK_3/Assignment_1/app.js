@@ -3,7 +3,10 @@ const hostname = '127.0.0.1'; //or localhost
 const app = express();
 const port = 3000;
 
-app.use('/WEEK_3/public', express.static('WEEK_3/public'));
+app.use(
+  '/WEEK_3/Assingment_1/public',
+  express.static('WEEK_3/Assingment_1/WEEK_3/public')
+);
 
 app.get('/', (req, res) => {
   res.send('Welcome to my REST API! :)');
