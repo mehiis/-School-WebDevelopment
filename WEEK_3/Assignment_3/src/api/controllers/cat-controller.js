@@ -10,7 +10,7 @@ const getCatById = (req, res) => {
   if (cat) {
     res.json(cat);
   } else {
-    res.sendStatus('APUA?!?!?!?!?!?' + 404);
+    res.sendStatus(404);
   }
 };
 
