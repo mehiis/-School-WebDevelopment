@@ -10,27 +10,27 @@ const getCatById = (req, res) => {
   if (cat) {
     res.json(cat);
   } else {
-    res.sendStatus('APUA?!?!?!?!?!?' + 404);
+    res.sendStatus(404);
   }
 };
 
 const postCat = (req, res) => {
   const result = addCat(req.body); //<---- DANGEROUS!!!! IN REAL WORLD HAS TO BE VALIDATED!!!
   if (result.cat_id) {
-    res.status('HIENOSTI MENEE!: ' + 201);
+    res.status(201);
     res.json({message: 'New cat added. ;)', result});
   } else {
-    res.sendStatus('AAAARGHHH!!! AUTTAKAAA NYT OIKEESTI?!?!?!?!?' + 400);
+    res.sendStatus(400);
   }
 };
 
 const putCat = (req, res) => {
-  // not implemented in this example, this is future homework
+  res.json({message: 'Cat item updated.'});
   res.sendStatus(200);
 };
 
 const deleteCat = (req, res) => {
-  // not implemented in this example, this is future homework
+  res.json({message: 'Cat item deleted.'});
   res.sendStatus(200);
 };
 

@@ -9,12 +9,20 @@ const userItems = [
     password: 'password',
   },
   {
-    user_id: 3639,
-    name: 'Jussi Kurki',
-    username: 'jk666',
-    email: 'jussimmmn@metropolia.fi',
-    role: 'admin',
-    password: 'passu',
+    user_id: 666,
+    name: 'Mich Jagger',
+    username: 'rs6',
+    email: 'mj@metropolia.fi',
+    role: 'user',
+    password: '123',
+  },
+  {
+    user_id: 123,
+    name: 'Jussi Petrelius',
+    username: 'jussip',
+    email: 'jussi.p@metropolia.fi',
+    role: 'user',
+    password: 'salis',
   },
 ];
 
@@ -22,23 +30,23 @@ const listAllUsers = () => {
   return userItems;
 };
 
-const findUsersById = (id) => {
-  return userItems.find((item) => item.cat_id == id);
+const findUserById = (id) => {
+  return userItems.find((item) => item.user_id == id);
 };
 
 const addUser = (user) => {
-  const {cat_name, weight, owner, filename, birthdate} = user;
-  const newId = userItems[0].cat_id + 1;
+  const {name, username, email, role, password} = user;
+  const newId = userItems[0].user_id + 1;
   userItems.unshift({
     //unshift adds this item to [0] cell of the array, could be also push
-    cat_id: newId,
-    cat_name,
-    weight,
-    owner,
-    filename,
-    birthdate,
+    user_id: newId,
+    name,
+    username,
+    email,
+    role,
+    password,
   });
-  return {cat_id: newId};
+  return {user_id: newId};
 };
 
-export {listAllUsers, findUsersById, addUser};
+export {listAllUsers, findUserById, addUser};

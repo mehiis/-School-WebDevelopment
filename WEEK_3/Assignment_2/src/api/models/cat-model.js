@@ -1,4 +1,5 @@
 // mock data
+//12. authareZATION BEARER, EI HAKASULKEITA!!!!!!!
 const catItems = [
   {
     cat_id: 9592,
@@ -23,7 +24,7 @@ const listAllCats = () => {
 };
 
 const findCatById = (id) => {
-  return catItems.find((item) => item.cat_id === id);
+  return catItems.find((item) => item.cat_id == id);
 };
 
 const addCat = (cat) => {

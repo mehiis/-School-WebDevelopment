@@ -30,3 +30,5 @@ app.get('/api/v1/cat', (req, res) => {
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+//TO-DO: SERVE TO ECLOUD

@@ -1,0 +1,10 @@
+POST  http://localhost:3000/api/v1/cats
+Content-Type: : application/json
+
+{
+    "cat_name": "Frank",
+    "weight": "11",
+    "owner": "3609",
+    "filename": "f3dbafakjsdfhg4",
+    "birthdate": "2021-10-12",
+}
