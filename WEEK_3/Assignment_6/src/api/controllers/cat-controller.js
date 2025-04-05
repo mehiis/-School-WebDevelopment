@@ -1,8 +1,9 @@
 import {
   addCat,
-  catDelete,
+  removeCat,
   findCatById,
   listAllCats,
+  findCatByOwnerId,
 } from '../models/cat-model.js';
 
 const getCat = async (req, res) => {
@@ -20,8 +21,9 @@ const getCatById = async (req, res) => {
 };
 
 const postCat = async (req, res) => {
+  req.body.filename = req.file.filename; //THIS BEFORE RESULT, BECAUSE WE HAVE TO GET THE FILENAME TO TRANSFER IT TO RESULT ->
   const result = await addCat(req.body); //<---- DANGEROUS!!!! IN REAL WORLD HAS TO BE VALIDATED!!!
-  req.body.filename = req.body.filename;
+
   if (result.cat_id) {
     res.status(201);
     res.json({message: 'New cat added. ;)', result});
@@ -31,19 +33,24 @@ const postCat = async (req, res) => {
 };
 
 const putCat = async (req, res) => {
-  const result = await deleteCat(req.body, req.paramsr.id); //<---- DANGEROUS!!!! IN REAL WORLD HAS TO BE VALIDATED!!!
-  if (result) {
-    res.status(200);
-  }
+  /* */
 };
 
 const deleteCat = async (req, res) => {
-  const result = await catDelete(req.params.id); //<---- DANGEROUS!!!! IN REAL WORLD HAS TO BE VALIDATED!!!
+  const result = await removeCat(req.params.id); //<---- DANGEROUS!!!! IN REAL WORLD HAS TO BE VALIDATED!!!
+
   if (result) {
     res.status(200);
   }
 };
 
-const getCatByOwnerId = async (req, res) => {};
+const getCatByOwnerId = async (req, res) => {
+  const cat = findCatByOwnerId(req.params.id);
+  if (cat) {
+    res.json(await cat);
+  } else {
+    res.sendStatus(404);
+  }
+};
 
 export {getCat, getCatById, postCat, putCat, deleteCat, getCatByOwnerId};

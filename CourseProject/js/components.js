@@ -33,9 +33,73 @@ signUpButton.addEventListener("click", (event) => {
   displaySignUp();
 });
 
+const loginButton = document.querySelector("#login-button");
+loginButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  console.log("proceed to login");
+});
+
+const registerButton = document.querySelector("#register-button");
+registerButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  console.log("proceed to register");
+
+  //FIRST CHECK LOGIN INFO
+  const infoText = document.querySelector("#info-text-register");
+  infoText.innerText = "";
+
+  const username = document.querySelector("#new-username").value;
+  const email = document.querySelector("#new-email").value;
+  const password = document.querySelector("#new-password").value;
+  const terms = document.querySelector("#terms").checked;
+  const usernameHasSpaces = utils.checkForWhiteSpace(username);
+  const emailHasSpaces = utils.checkForWhiteSpace(email);
+  const passwordHasSpaces = utils.checkForWhiteSpace(password);
+
+  //INVALID USERNAME
+  if(usernameHasSpaces || username.length < 3){
+    infoText.innerText = "Username cannot contain any spaces and it has to be at least 4 characters long!";
+    console.log("Username cannot contain any spaces and it has to be at least 4 characters long!");
+    return;
+  }
+
+  //INVALID EMAIL
+  if(emailHasSpaces || email.length < 3 || !email.includes("@")){
+    infoText.innerText = "Email cannot contain any spaces and it must contain @ sign!";
+    console.log("Email cannot contain any spaces and it must contain @ sign!");
+    return;
+  }
+
+  //INVALID PASSWORD
+  if(passwordHasSpaces || password.length < 7){
+    infoText.innerText = "Password cannot contain any spaces and it must be minimum 8 characters long.";
+    console.log("Password cannot contain any spaces and it must be minimum 8 characters long.");
+    return;
+  }
+
+  console.log(terms);
+  //ACCEPT TERMS OF SERVICE!!!
+  if(!terms){
+    infoText.innerText = "Please check that you have read and agree to the terms of service.";
+    console.log("Please check that you have read and agree to the terms of service.");
+    return;
+  }
+
+  const response = await data.checkUsernameAvailability(username);
+
+  //CHECK IF THE USERNAME IS NOT TAKEN
+  if(!response){
+    console.log(`Username "${username}" already in use.`);
+    return;
+  } else{
+    //USERNAME AVAILABLE PROCEED!
+    console.log(`New user succesfully registered with username: "${username}".`);
+  }
+});
+
 async function createCards(listOfRestaurants) {
   const content = document.querySelector('#content');
-  content.innerHTML = '';
+  content.innerHTML = ''; //MAKE SURE THE CONTENT IS EMPTY.
 
   //CHECK IF THE LIST IS EMPTY, THEN DISPLAY ERROR MESSAGE, ELSE LOOP THROUGHT EVERY RESTAURANT AND CREATE CONTENT CARDS.
   if(listOfRestaurants.length === 0){

@@ -40,6 +40,12 @@ body {
   border-radius: 0.5rem;
 }
 
+#map-dummy {
+  height: 70vh;
+  border-radius: 0.5rem;
+  margin-right: 92rem;
+}
+
 img {
   width: 100%;
   height: 100%;
@@ -254,9 +260,8 @@ img {
 
   width: 90%;
   height: fit-content;
-
-  max-width: 50%;
   min-width: 375px;
+  max-width: fit-content;
 }
 
 #modal-header {

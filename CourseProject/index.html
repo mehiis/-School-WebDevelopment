@@ -73,7 +73,7 @@
         <button id="close-modal-button">X</button>
       </div>
       <div id="modal-content">
-        <div id="map"></div>
+        <div id="map"><p id="map-dummy"></p></div>
         <div id="weekly-menu"></div>
         <div id="sign-in">
           <h2>Kirjaudu sisään</h2>
@@ -95,7 +95,7 @@
             placeholder="Salasana..."
             required
           />
-            <button class="search-button" type="submit">Kirjaudu sisään</button>
+            <button class="search-button" id="login-button" type="submit">Kirjaudu sisään</button>
 
           </form>
         </div>
@@ -113,11 +113,11 @@
               required
             />
 
-            <label for="new-username">Sähköposti:</label>
+            <label for="new-email">Sähköposti:</label>
             <input
               type="email"
-              id="email"
-              name="email"
+              id="new-email"
+              name="new-email"
               placeholder="Sähköposti..."
               minlength="3"
               required
@@ -139,7 +139,8 @@
           />
           <label for="terms"> Hyväksyn käyttäjäehdot ja kaiken ikinä.</label>
           </div>
-            <button class="search-button" type="submit">Rekisteröidy</button>
+          <p id="info-text-register"></p>
+            <button class="search-button" id="register-button" type="submit">Rekisteröidy</button>
 
           </form>
         </div>

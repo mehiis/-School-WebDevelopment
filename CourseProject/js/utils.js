@@ -59,6 +59,10 @@ function mapClearMarkers() {
   layerGroup.clearLayers();
 }
 
+function checkForWhiteSpace(str) {
+  return str.indexOf(' ') >= 0;
+}
+
 export default {
   fetchData,
   distance,
@@ -66,4 +70,5 @@ export default {
   mapAddRestaurantToMap,
   mapClearMarkers,
   mapAddUserToMap,
+  checkForWhiteSpace
 };

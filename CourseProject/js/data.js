@@ -81,6 +81,12 @@ function navError(err) {
 }
 //PLAYER LOCATION END
 
+//CHECK IF USERNAME IS AVAILABLE.
+async function checkUsernameAvailability(username){
+  const response = await utils.fetchData(`https://media2.edu.metropolia.fi/restaurant/api/v1/users/available/${username}`);
+  return response.available
+}
+
 export default {
   listOfaLLRestaurants,
   listOfRestaurantsToShow,
@@ -92,5 +98,6 @@ export default {
   navError,
   navSuccess,
   filterWithWord,
+  checkUsernameAvailability,
   navOptions,
 };

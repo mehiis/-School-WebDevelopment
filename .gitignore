@@ -224,6 +224,8 @@ WEEK_1/Test
 WEEK_2/Recap_3/tests
 WEEK_3/Assignment_3/uploads/*
 WEEK_3/Assignment_4/uploads/*
+zRANDOM
+.env
 
 #CUSTOM KEEP
 !WEEK_3/Assignment_3/uploads/.gitkeep
