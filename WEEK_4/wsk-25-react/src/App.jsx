@@ -1,9 +1,11 @@
 import './App.css';
+import Home from './components/Home.jsx';
 
 const App = function () {
   return (
     <>
-      <h1>My app</h1>
+      <h1>MY APP</h1>
+      <Home />
     </>
   );
 };
