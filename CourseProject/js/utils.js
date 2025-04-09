@@ -1,6 +1,31 @@
+import data from "./data.js";
+
 let mapInitialized = false;
 const map = L.map('map').setView([60.17, 24.945831], 12);
 let layerGroup = L.layerGroup();
+
+var restaurantIcon = L.icon({
+  iconUrl: "img/restaurant-icon.png",
+  //shadowUrl: 'leaf-shadow.png',
+
+  iconSize:     [38, 95], // size of the icon
+  //shadowSize:   [50, 64], // size of the shadow
+  iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62],  // the same for the shadow
+  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var userIcon = L.icon({
+  iconUrl: "img/you-icon.png",
+  //shadowUrl: 'leaf-shadow.png',
+
+  iconSize:     [38, 95], // size of the icon
+  //shadowSize:   [50, 64], // size of the shadow
+  iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62],  // the same for the shadow
+  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
 
 async function fetchData(url, options) {
   const response = await fetch(url, options);
@@ -19,7 +44,6 @@ function distance(startPoint, endPoint) {
       Math.pow(endPoint[1] - startPoint[1], 2)
   );
 }
-
 function mapInit() {
   if (!mapInitialized) {
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -43,7 +67,7 @@ function mapAddRestaurantToMap(location) {
     map.removeLayer(layerGroup);
   }
 
-  const marker = L.marker(location).addTo(map);
+  const marker = L.marker(location, {icon: restaurantIcon}).addTo(map);
   marker.addTo(layerGroup);
   map.invalidateSize();
 
@@ -51,7 +75,7 @@ function mapAddRestaurantToMap(location) {
 }
 
 function mapAddUserToMap(location) {
-  L.marker(location).addTo(map);
+  L.marker(location, {icon: userIcon}).addTo(map);
   map.invalidateSize();
 }
 

@@ -13,11 +13,11 @@ let userLocation;
 async function fetchAllRestaurants() {
   try {
     listOfaLLRestaurants = await utils.fetchData(`${apiUrl}/restaurants/`);
+
+    navigator.geolocation.getCurrentPosition(navSuccess, navError, navOptions);
   } catch {
     console.log('Could not fetch restaurants data.');
   }
-
-  console.log(listOfaLLRestaurants);
 }
 
 function restaurantAmountToLoad(amount) {
@@ -72,12 +72,26 @@ function navSuccess(pos) {
   userLocation = [crd.latitude, crd.longitude];
   utils.mapAddUserToMap(userLocation);
 
-  console.log('User coordiantes: ' + userLocation);
+  listOfaLLRestaurants = listOfaLLRestaurants.sort(function (a, b) {
+    let aLoc = [a.location.coordinates[1], a.location.coordinates[0]];
+    let bLoc = [b.location.coordinates[1], b.location.coordinates[0]];
+    return (
+        utils.distance(userLocation, aLoc) -
+        utils.distance(userLocation, bLoc)
+      );
+  });
+
+  updateRestaurantsToLoad();
+  listOfaLLRestaurants[0].name = '<span style="color:#ef2256;"><i>LÄHIN: </i></span>' + listOfaLLRestaurants[0].name;
+  components.createCards(listOfRestaurantsToShow);
 }
 
 // Function to be called if an error occurs while retrieving location information
 function navError(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
+
+  updateRestaurantsToLoad();
+  components.createCards(listOfRestaurantsToShow);
 }
 //PLAYER LOCATION END
 
@@ -85,6 +99,63 @@ function navError(err) {
 async function checkUsernameAvailability(username){
   const response = await utils.fetchData(`https://media2.edu.metropolia.fi/restaurant/api/v1/users/available/${username}`);
   return response.available
+}
+
+async function registerUser(username, email, password){
+  const data = {
+    "username": username,
+    "password": password,
+    "email": email,
+  };
+  console.log(data);
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+
+  const response = await fetch("https://media2.edu.metropolia.fi/restaurant/api/v1/users", fetchOptions);
+  const json = await response.json();
+
+  console.log(json);
+
+  return response.status;
+}
+
+async function loginUser(username, password){
+  console.log(username + " || " + password);
+
+  const data = {
+      "username": username,
+      "password": password
+    }
+
+    console.log("data ::: " + data);
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch("https://media2.edu.metropolia.fi/restaurant/api/v1/auth/login", fetchOptions);
+    const json = await response.json();
+
+    console.log("json ::: " + response);
+
+    if (response !== 200) {
+      console.log("jotai");
+    } else {
+      // save token and user
+      window.sessionStorage.setItem('token', json.token);
+      window.sessionStorage.setItem('user', JSON.stringify(json.username));
+      //username = JSON.parse(window.sessionStorage.getItem('user'));
+    }
 }
 
 export default {
@@ -99,5 +170,7 @@ export default {
   navSuccess,
   filterWithWord,
   checkUsernameAvailability,
+  registerUser,
+  loginUser,
   navOptions,
 };

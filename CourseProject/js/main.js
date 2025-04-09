@@ -7,10 +7,6 @@ async function main() {
   await data.fetchAllRestaurants(); //Fetch data from restaurants.
   data.restaurantAmountToLoad(10); //how many restaurants would you like to load on a website at a time.
   data.updateRestaurantsToLoad();
-
-  components.createCards(data.listOfRestaurantsToShow);
-
-  navigator.geolocation.getCurrentPosition(data.navSuccess, data.navError, data.navOptions);
 }
 
 main();

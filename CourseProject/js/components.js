@@ -34,9 +34,13 @@ signUpButton.addEventListener("click", (event) => {
 });
 
 const loginButton = document.querySelector("#login-button");
-loginButton.addEventListener("click", (event) => {
+loginButton.addEventListener("click", async (event) => {
   event.preventDefault();
   console.log("proceed to login");
+  const username = document.querySelector("#username").value;
+  const password = document.querySelector("#password").value;
+
+  await data.loginUser(username, password);
 });
 
 const registerButton = document.querySelector("#register-button");
@@ -58,21 +62,21 @@ registerButton.addEventListener("click", async (event) => {
 
   //INVALID USERNAME
   if(usernameHasSpaces || username.length < 3){
-    infoText.innerText = "Username cannot contain any spaces and it has to be at least 4 characters long!";
+    infoText.innerText = "Käyttäjätunnus on oltava vähintään 4 merkkiä eikä sisällä välejä.";
     console.log("Username cannot contain any spaces and it has to be at least 4 characters long!");
     return;
   }
 
   //INVALID EMAIL
   if(emailHasSpaces || email.length < 3 || !email.includes("@")){
-    infoText.innerText = "Email cannot contain any spaces and it must contain @ sign!";
+    infoText.innerText = "Sähköpostissa on oltava '@' merkki.";
     console.log("Email cannot contain any spaces and it must contain @ sign!");
     return;
   }
 
   //INVALID PASSWORD
   if(passwordHasSpaces || password.length < 7){
-    infoText.innerText = "Password cannot contain any spaces and it must be minimum 8 characters long.";
+    infoText.innerText = "Salasanan on oltava vähintää 8 merkkiä.";
     console.log("Password cannot contain any spaces and it must be minimum 8 characters long.");
     return;
   }
@@ -80,7 +84,7 @@ registerButton.addEventListener("click", async (event) => {
   console.log(terms);
   //ACCEPT TERMS OF SERVICE!!!
   if(!terms){
-    infoText.innerText = "Please check that you have read and agree to the terms of service.";
+    infoText.innerText = "Hyväksy käyttäjäehdot.";
     console.log("Please check that you have read and agree to the terms of service.");
     return;
   }
@@ -89,11 +93,22 @@ registerButton.addEventListener("click", async (event) => {
 
   //CHECK IF THE USERNAME IS NOT TAKEN
   if(!response){
+    infoText.innerText = "Käyttäjätunnus on jo käytössä.";
     console.log(`Username "${username}" already in use.`);
     return;
   } else{
     //USERNAME AVAILABLE PROCEED!
-    console.log(`New user succesfully registered with username: "${username}".`);
+    const response = await data.registerUser(username, email, password);
+    console.log(response);
+
+    if(response == 200){
+      console.log(`New user succesfully registered with username: "${username}".`);
+      closeModal();
+    } else if(response == 400){
+      infoText.innerText = "Sähköposti on jo käytössä.";
+    } else{
+      infoText.innerText = "Verkkovirhe, joku meni pieleen. Kokeile uudestaan.";
+    }
   }
 });
 
@@ -137,7 +152,7 @@ async function createContentCard(restaurant) {
 
   const restaurantName = document.createElement('h2');
   restaurantName.classList.add('restaurant-name');
-  restaurantName.innerText = `${restaurant.name} (${restaurant.company})`;
+  restaurantName.innerHTML = `${restaurant.name} (${restaurant.company})`;
 
   const heartButton = document.createElement('button');
   heartButton.classList.add('heart-button');
@@ -247,6 +262,7 @@ function hideModalContent() {
   signIn.style.display = 'none';
 
   const signUp = document.querySelector('#sign-up');
+  emptyRegisterInputs();
   signUp.style.display = 'none';
 }
 
@@ -336,6 +352,15 @@ function displaySignIn(){
 function displaySignUp(){
   const signUp = document.querySelector('#sign-up');
   signUp.style.display = 'block';
+}
+
+function emptyRegisterInputs(){
+  const username = document.querySelector("#new-username");
+  username.value = "";
+  const email = document.querySelector("#new-email");
+  email.value = "";
+  const password = document.querySelector("#new-password");
+  password.value = "";
 }
 
 export default {createCards};

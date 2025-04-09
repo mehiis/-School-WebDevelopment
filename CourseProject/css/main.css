@@ -313,5 +313,10 @@ font-family: custom;
 
 #sign-in > form > input, #sign-up > form > input{ margin-bottom: 2rem; }
 
+.info-text{
+  color: red;
+  font-size: x-small;
+}
+
 
 
