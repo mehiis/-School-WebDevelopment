@@ -1,6 +1,9 @@
 'use strict';
 import data from './data.js';
 import utils from './utils.js';
+import modal from './components/modal.js';
+import navigationLoggedIn from './components/navigationLoggedIn.js';
+import navigationLoggedOut from './components/navigationLoggedOut.js';
 
 let previousSearchWord = "";
 
@@ -16,101 +19,11 @@ searchButton.addEventListener('click', (event) => {
   }
 });
 
-//DISPLAY THE !SIGN IN! MODALE
-const signInButton = document.querySelector("#sign-in-button");
-signInButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  openModal();
-  displaySignIn();
-});
-
-
-//DISPLAY THE !SIGN UP! MODALE
-const signUpButton = document.querySelector("#sign-up-button");
-signUpButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  openModal();
-  displaySignUp();
-});
-
-const loginButton = document.querySelector("#login-button");
-loginButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-  console.log("proceed to login");
-  const username = document.querySelector("#username").value;
-  const password = document.querySelector("#password").value;
-
-  await data.loginUser(username, password);
-});
-
-const registerButton = document.querySelector("#register-button");
-registerButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-  console.log("proceed to register");
-
-  //FIRST CHECK LOGIN INFO
-  const infoText = document.querySelector("#info-text-register");
-  infoText.innerText = "";
-
-  const username = document.querySelector("#new-username").value;
-  const email = document.querySelector("#new-email").value;
-  const password = document.querySelector("#new-password").value;
-  const terms = document.querySelector("#terms").checked;
-  const usernameHasSpaces = utils.checkForWhiteSpace(username);
-  const emailHasSpaces = utils.checkForWhiteSpace(email);
-  const passwordHasSpaces = utils.checkForWhiteSpace(password);
-
-  //INVALID USERNAME
-  if(usernameHasSpaces || username.length < 3){
-    infoText.innerText = "Käyttäjätunnus on oltava vähintään 4 merkkiä eikä sisällä välejä.";
-    console.log("Username cannot contain any spaces and it has to be at least 4 characters long!");
-    return;
-  }
-
-  //INVALID EMAIL
-  if(emailHasSpaces || email.length < 3 || !email.includes("@")){
-    infoText.innerText = "Sähköpostissa on oltava '@' merkki.";
-    console.log("Email cannot contain any spaces and it must contain @ sign!");
-    return;
-  }
-
-  //INVALID PASSWORD
-  if(passwordHasSpaces || password.length < 7){
-    infoText.innerText = "Salasanan on oltava vähintää 8 merkkiä.";
-    console.log("Password cannot contain any spaces and it must be minimum 8 characters long.");
-    return;
-  }
-
-  console.log(terms);
-  //ACCEPT TERMS OF SERVICE!!!
-  if(!terms){
-    infoText.innerText = "Hyväksy käyttäjäehdot.";
-    console.log("Please check that you have read and agree to the terms of service.");
-    return;
-  }
-
-  const response = await data.checkUsernameAvailability(username);
-
-  //CHECK IF THE USERNAME IS NOT TAKEN
-  if(!response){
-    infoText.innerText = "Käyttäjätunnus on jo käytössä.";
-    console.log(`Username "${username}" already in use.`);
-    return;
-  } else{
-    //USERNAME AVAILABLE PROCEED!
-    const response = await data.registerUser(username, email, password);
-    console.log(response);
-
-    if(response == 200){
-      console.log(`New user succesfully registered with username: "${username}".`);
-      closeModal();
-    } else if(response == 400){
-      infoText.innerText = "Sähköposti on jo käytössä.";
-    } else{
-      infoText.innerText = "Verkkovirhe, joku meni pieleen. Kokeile uudestaan.";
-    }
-  }
-});
+async function loadNavBar(){
+  const isLoggedIn = await data.checkAuthorization();
+  if(!isLoggedIn){navigationLoggedOut.logOutNav();
+  } else { navigationLoggedIn.logInNav(); }
+}
 
 async function createCards(listOfRestaurants) {
   const content = document.querySelector('#content');
@@ -220,10 +133,11 @@ async function createContentCard(restaurant) {
   const weeklyMenuButton = document.createElement('button');
   weeklyMenuButton.classList.add('content-card-button');
   weeklyMenuButton.innerText = 'KATSO VIIKON RUOKALISTA';
-  weeklyMenuButton.addEventListener('click', (event) => {
+
+  weeklyMenuButton.addEventListener('click', async (event) => {
     event.preventDefault();
-    openModal();
-    displayWeeklyMenu(restaurant);
+    modal.openModal()
+    modal.displayWeeklyMenu(restaurant);
   });
 
   const openMapLocationButton = document.createElement('button');
@@ -232,8 +146,8 @@ async function createContentCard(restaurant) {
   openMapLocationButton.addEventListener('click', (event) => {
     event.preventDefault();
 
-    openModal();
-    displayMap(restaurant.location);
+    modal.openModal();
+    modal.displayMap(restaurant.location);
   });
 
   buttonDiv.append(weeklyMenuButton, openMapLocationButton);
@@ -247,120 +161,8 @@ async function createContentCard(restaurant) {
     todayHeader,
     todayInMenu,
     buttonDiv,
-    separator
+    separator,
   );
 }
 
-function hideModalContent() {
-  const map = document.querySelector('#map');
-  map.style.display = 'none';
-
-  const weeklyMenu = document.querySelector('#weekly-menu');
-  weeklyMenu.style.display = 'none';
-
-  const signIn = document.querySelector('#sign-in');
-  signIn.style.display = 'none';
-
-  const signUp = document.querySelector('#sign-up');
-  emptyRegisterInputs();
-  signUp.style.display = 'none';
-}
-
-function openModal() {
-  hideModalContent();
-  const mdl = document.querySelector('#modale');
-  const closeButton = document.querySelector('#close-modal-button');
-  closeButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    closeModal();
-  });
-
-  mdl.showModal();
-}
-
-function closeModal() {
-  hideModalContent();
-  const mdl = document.querySelector('#modale');
-  mdl.close();
-}
-
-async function displayWeeklyMenu(restaurant) {
-  const weeklyMenu = document.querySelector('#weekly-menu');
-  weeklyMenu.innerHTML = '';
-
-  const weeklyMenuHeader = document.createElement('h2');
-  weeklyMenuHeader.id = 'week-menu-header';
-  weeklyMenuHeader.innerText = `${restaurant.name.toUpperCase()} - VIIKON RUOKALISTA`;
-  weeklyMenu.append(weeklyMenuHeader);
-
-  weeklyMenu.style.display = 'block';
-
-  try {
-    const menuOfWeekPromise = await data.getWeeklyMenu(restaurant._id, 'fi');
-    const menuOfWeek = menuOfWeekPromise.days;
-
-    for (const menu of menuOfWeek) {
-      const date = document.createElement('h4');
-      date.innerText = menu.date.toUpperCase();
-
-      const food = document.createElement('p');
-      for (const item of menu.courses) {
-        let checkedPrice = item.price;
-        let checkedDiets = item.diets;
-
-        if (checkedPrice == undefined) {
-          checkedPrice =
-            '<i><span style="color: #ff0000">(Hinta ei saatavilla.)</span></i>';
-        }
-
-        if (checkedDiets == undefined) {
-          checkedDiets =
-            '<i><span style="color: #ff0000">(Allergeenit ei saatavilla.)</span></i>';
-        }
-
-        food.innerHTML += `${item.name}, ${checkedPrice}, <strong>${checkedDiets}</strong> <br> <br>`;
-      }
-
-      weeklyMenu.append(date, food);
-    }
-  } catch {
-    const notFound = document.createElement('h4');
-    notFound.innerText = 'Viikon ruokalistaa ei löytynyt. :(';
-
-    weeklyMenu.append(notFound);
-  }
-}
-
-function displayMap(location) {
-  //SET HERE WHAT RESTAURANTS TO DISPLAY AND WHERE YOU ARE TMS YMS.
-  const mapItem = document.querySelector('#map');
-  mapItem.style.display = 'block';
-
-  utils.mapClearMarkers();
-
-  const fixedLocation = [location.coordinates[1], location.coordinates[0]];
-  utils.mapAddRestaurantToMap(fixedLocation); //add restaurant to the map
-  //PLAYER PIN POINT ADDED IN THE MAIN!!
-  utils.mapInit();
-}
-
-function displaySignIn(){
-  const signIn = document.querySelector('#sign-in');
-  signIn.style.display = 'block';
-}
-
-function displaySignUp(){
-  const signUp = document.querySelector('#sign-up');
-  signUp.style.display = 'block';
-}
-
-function emptyRegisterInputs(){
-  const username = document.querySelector("#new-username");
-  username.value = "";
-  const email = document.querySelector("#new-email");
-  email.value = "";
-  const password = document.querySelector("#new-password");
-  password.value = "";
-}
-
-export default {createCards};
+export default {createCards, loadNavBar};

@@ -52,20 +52,8 @@
         </div>
 
         <div class="nav-column" id="desktop-menu">
-          <ul class="desktop-navigation">
-            <li>
-              <button class="nav-button">
-                <a href="index.html">Etusivu</a>
-              </button>
-            </li>
-            <li>
-              <button class="nav-button" id="sign-in-button">Kirjaudu</button>
-            </li>
-            <li>
-              <button class="nav-button" id="sign-up-button">
-                Rekisteröidy
-              </button>
-            </li>
+          <ul id="desktop-navigation">
+
           </ul>
         </div>
       </div>
@@ -86,7 +74,7 @@
         <div id="map"><p id="map-dummy"></p></div>
         <div id="weekly-menu"></div>
         <div id="sign-in">
-          <h2>Kirjaudu sisään</h2>
+          <h2 class="modal-title">Kirjaudu sisään</h2>
 
           <form>
             <label for="username">Käyttäjätunnus:</label>
@@ -111,7 +99,7 @@
           </form>
         </div>
         <div id="sign-up">
-          <h2>Rekisteröidy</h2>
+          <h2 class="modal-title">Rekisteröidy</h2>
 
           <form>
             <label for="new-username">Käyttäjätunnus:</label>
@@ -150,6 +138,51 @@
             <p class="info-text" id="info-text-register"></p>
             <button class="search-button" id="register-button" type="submit">
               Rekisteröidy
+            </button>
+          </form>
+        </div>
+        <div id="my-page">
+          <h2 class="modal-title">Omat tiedot</h2>
+
+          <form id="my-page-form">
+            <label for="my-id">ID:</label>
+            <input
+              type="text"
+              id="my-id"
+              name="my-id"
+              disabled
+            />
+
+            <label for="my-username">Käyttäjätunnus:</label>
+            <input
+              type="text"
+              id="my-username"
+              name="my-username"
+              disabled
+            />
+
+            <label for="my-email">Sähköposti:</label>
+            <input
+              type="text"
+              id="my-email"
+              name="my-email"
+              disabled
+            />
+
+            <label for="my-email">Salasana:</label>
+            <input
+              type="password"
+              id="my-password"
+              name="my-password"
+              disabled
+              value="PASSWORD"
+            />
+
+            <button class="search-button" id="modify-user" type="submit">
+              Muokkaa
+            </button>
+            <button class="search-button" id="confirm-user" type="submit">
+              Tallenna muutokset
             </button>
           </form>
         </div>

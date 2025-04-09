@@ -2,6 +2,7 @@
 import components from './components.js';
 import utils from './utils.js';
 import user from './user.js';
+import modal from './components/modal.js';
 
 const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 
@@ -111,7 +112,6 @@ async function registerUser(username, email, password) {
     password: password,
     email: email,
   };
-  console.log(data);
 
   const fetchOptions = {
     method: 'POST',
@@ -126,9 +126,6 @@ async function registerUser(username, email, password) {
     fetchOptions
   );
   const json = await response.json();
-
-  console.log(json);
-
   return response.status;
 }
 
@@ -152,24 +149,43 @@ async function loginUser(username, password) {
       fetchOptions
     );
 
-    // console.log('response< ::: ', response);
+    window.sessionStorage.setItem('token', response.token);
 
-    if (response.ok) {
-      console.log('asd');
-      await user.login();
-    }
+    modal.closeModal();
+    user.login();
   } catch {
     console.log('Login failed.');
   }
+}
 
-  // if (response !== 200) {
-  //   console.log("jotai");
-  // } else {
-  //   // save token and user
-  //   window.sessionStorage.setItem('token', json.token);
-  //   window.sessionStorage.setItem('user', JSON.stringify(json.username));
-  //   //username = JSON.parse(window.sessionStorage.getItem('user'));
-  // }
+async function checkAuthorization(){
+  try {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+
+    const response = await utils.fetchData(apiUrl + "/users/token", fetchOptions);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function getUserData(){
+  try {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+
+    const response = await utils.fetchData(apiUrl + "/users/token", fetchOptions);
+    return response;
+  } catch {
+    console.log("error fetching user data....");
+  }
 }
 
 export default {
@@ -186,5 +202,7 @@ export default {
   checkUsernameAvailability,
   registerUser,
   loginUser,
+  checkAuthorization,
+  getUserData,
   navOptions,
 };

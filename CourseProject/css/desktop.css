@@ -27,28 +27,25 @@ li {
 }
 
 .nav-bar {
-  grid-template-columns: 3fr 20fr 0fr 4fr 1fr;
+  grid-template-columns: 3fr 20fr 0fr 8fr 1fr;
 }
 
-.desktop-navigation {
+#desktop-navigation {
   display: flex;
-  text-decoration: none;
 }
 
-.desktop-navigation > * {
-  text-decoration: none;
-}
-
-.desktop-navigation > * > * > *, .desktop-navigation > * > * {
+#desktop-navigation > * > * > *, #desktop-navigation > * > * {
   text-decoration: none;
   list-style-type: none;
   margin-left: 10px;
   font-family: custom;
   font-size: 32px;
   color: var(--primary-color);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.desktop-navigation > * > *:hover, .desktop-navigation > * > * >*:hover {
+#desktop-navigation > * > *:hover, #desktop-navigation > * > * >*:hover {
   color: var(--secundary-color);
   transition: transform 0.4s;
   transform: scale(1.1);
