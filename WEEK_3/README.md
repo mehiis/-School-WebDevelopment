@@ -1,5 +1,9 @@
-Themes:
+Topics:
 
-    - mysql2 library
-    - .env -files
-    - myPhp database
+    - back-end
+    - express.js
+    - routing, middlewares
+    - mvc models
+    - authorization
+    - bcrypt
+    - mysql database
