@@ -1,6 +1,7 @@
 'use strict';
 import components from './components.js';
 import utils from './utils.js';
+import user from './user.js';
 
 const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 
@@ -76,13 +77,14 @@ function navSuccess(pos) {
     let aLoc = [a.location.coordinates[1], a.location.coordinates[0]];
     let bLoc = [b.location.coordinates[1], b.location.coordinates[0]];
     return (
-        utils.distance(userLocation, aLoc) -
-        utils.distance(userLocation, bLoc)
-      );
+      utils.distance(userLocation, aLoc) - utils.distance(userLocation, bLoc)
+    );
   });
 
   updateRestaurantsToLoad();
-  listOfaLLRestaurants[0].name = '<span style="color:#ef2256;"><i>LÄHIN: </i></span>' + listOfaLLRestaurants[0].name;
+  listOfaLLRestaurants[0].name =
+    '<span style="color:#ef2256;"><i>LÄHIN: </i></span>' +
+    listOfaLLRestaurants[0].name;
   components.createCards(listOfRestaurantsToShow);
 }
 
@@ -96,16 +98,18 @@ function navError(err) {
 //PLAYER LOCATION END
 
 //CHECK IF USERNAME IS AVAILABLE.
-async function checkUsernameAvailability(username){
-  const response = await utils.fetchData(`https://media2.edu.metropolia.fi/restaurant/api/v1/users/available/${username}`);
-  return response.available
+async function checkUsernameAvailability(username) {
+  const response = await utils.fetchData(
+    `${apiUrl}/users/available/${username}`
+  );
+  return response.available;
 }
 
-async function registerUser(username, email, password){
+async function registerUser(username, email, password) {
   const data = {
-    "username": username,
-    "password": password,
-    "email": email,
+    username: username,
+    password: password,
+    email: email,
   };
   console.log(data);
 
@@ -117,7 +121,10 @@ async function registerUser(username, email, password){
     body: JSON.stringify(data),
   };
 
-  const response = await fetch("https://media2.edu.metropolia.fi/restaurant/api/v1/users", fetchOptions);
+  const response = await fetch(
+    'https://media2.edu.metropolia.fi/restaurant/api/v1/users',
+    fetchOptions
+  );
   const json = await response.json();
 
   console.log(json);
@@ -125,37 +132,44 @@ async function registerUser(username, email, password){
   return response.status;
 }
 
-async function loginUser(username, password){
-  console.log(username + " || " + password);
-
+async function loginUser(username, password) {
   const data = {
-      "username": username,
-      "password": password
+    username: username,
+    password: password,
+  };
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+
+  try {
+    const response = await utils.fetchData(
+      'https://media2.edu.metropolia.fi/restaurant/api/v1/auth/login',
+      fetchOptions
+    );
+
+    // console.log('response< ::: ', response);
+
+    if (response.ok) {
+      console.log('asd');
+      await user.login();
     }
+  } catch {
+    console.log('Login failed.');
+  }
 
-    console.log("data ::: " + data);
-
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await fetch("https://media2.edu.metropolia.fi/restaurant/api/v1/auth/login", fetchOptions);
-    const json = await response.json();
-
-    console.log("json ::: " + response);
-
-    if (response !== 200) {
-      console.log("jotai");
-    } else {
-      // save token and user
-      window.sessionStorage.setItem('token', json.token);
-      window.sessionStorage.setItem('user', JSON.stringify(json.username));
-      //username = JSON.parse(window.sessionStorage.getItem('user'));
-    }
+  // if (response !== 200) {
+  //   console.log("jotai");
+  // } else {
+  //   // save token and user
+  //   window.sessionStorage.setItem('token', json.token);
+  //   window.sessionStorage.setItem('user', JSON.stringify(json.username));
+  //   //username = JSON.parse(window.sessionStorage.getItem('user'));
+  // }
 }
 
 export default {
