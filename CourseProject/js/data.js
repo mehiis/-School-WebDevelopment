@@ -34,6 +34,12 @@ function updateRestaurantsToLoad() {
   }
 }
 
+async function getRestaurantById(id){
+  try{
+    return await utils.fetchData(`${apiUrl}/restaurants/${id}`);
+  } catch{/* empty */}
+}
+
 async function getDailyMenu(id, language) {
   //Errors catched in when called in './js/components.js' @ createContentCards() function.
   return await utils.fetchData(
@@ -265,6 +271,7 @@ async function addFavouriteRestaurant(id){
 export default {
   listOfaLLRestaurants,
   listOfRestaurantsToShow,
+  navOptions,
   fetchAllRestaurants,
   restaurantAmountToLoad,
   updateRestaurantsToLoad,
@@ -282,5 +289,5 @@ export default {
   modifyUserData,
   changePassword,
   addFavouriteRestaurant,
-  navOptions,
+  getRestaurantById,
 };

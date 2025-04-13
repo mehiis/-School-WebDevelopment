@@ -13,13 +13,19 @@ function logInNav(){
   myInfoButton.innerText = "Omat tiedot"
   myInfoLi.append(myInfoButton);
 
+  const favRestaurantLi = document.createElement("li");
+  const favRestaurantButton = document.createElement("button");
+  favRestaurantButton.classList.add("nav-button");
+  favRestaurantButton.innerText = "Suosikki"
+  favRestaurantLi.append(favRestaurantButton);
+
   const logOutLi = document.createElement("li");
   const logOutButton = document.createElement("button");
   logOutButton.classList.add("nav-button");
   logOutButton.innerText = "Kirjaudu ulos"
   logOutLi.append(logOutButton);
 
-  nav.append(myInfoLi, logOutLi);
+  nav.append(myInfoLi, favRestaurantLi, logOutLi);
 
   logOutButton.addEventListener('click', (event) => {
     event.preventDefault();
@@ -38,6 +44,12 @@ function logInNav(){
     event.preventDefault();
     modal.openModal();
     modal.displayMyPage();
+  });
+
+  favRestaurantButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    modal.openModal();
+    modal.displayFavouriteRestaurant();
   });
 }
 

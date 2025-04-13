@@ -1,5 +1,6 @@
 import utils from '../utils.js'
 import data from '../data.js'
+import user from '../user.js';
 
 function openModal() {
   hideModalContent();
@@ -44,6 +45,9 @@ function hideModalContent() {
 
   const changePassword = document.querySelector('#change-password');
   changePassword.style.display = 'none';
+
+  const favouriteRestaurant = document.querySelector('#favourite-restaurant');
+  favouriteRestaurant.style.display = 'none';
 }
 
 function displayChangePassword(){
@@ -58,7 +62,7 @@ function displayChangePassword(){
     const newPasswordAgain = document.querySelector("#change-password-input-again").value;
 
     if(newPassword !== newPasswordAgain){
-      infoText.innerText = "Virhe! Uudet salasat eivät täsmää!";
+      infoText.innerText = "Virhe! Uudet salasanat eivät täsmää!";
         return;
     }
 
@@ -228,5 +232,97 @@ async function displayMyPage(){
   myPage.style.display = 'block';
 }
 
+async function displayFavouriteRestaurant() {
+  //SET HERE WHAT RESTAURANTS TO DISPLAY AND WHERE YOU ARE TMS YMS.
+  const mapItem = document.querySelector('#favourite-restaurant');
+  mapItem.style.display = 'block';
 
-export default {openModal, closeModal, displayMap, displaySignIn, displaySignUp, displayWeeklyMenu, displayMyPage, displayChangePassword}
+  const content = document.querySelector("#fav-restaurant-content");
+  content.innerHTML = "";
+
+  if(user.favouriteRestaurantId === "" || user.favouriteRestaurantId === undefined){
+    const infoText = document.createElement("p");
+    infoText.innerText = "Et ole vielä valinnut suosikki ravintolaasi... :(";
+
+    content.append(infoText);
+  } else{
+    const favRestaurant = await data.getRestaurantById(user.favouriteRestaurantId);
+    console.log("user favourite restaurant", favRestaurant);
+
+    const rName = document.createElement("h2");
+    rName.innerHTML = favRestaurant.name + " (" + favRestaurant.company + ")";
+    rName.classList.add('clear');
+
+    const rContactInfo = document.createElement("p");
+    rContactInfo.innerText = `${favRestaurant.address}, ${favRestaurant.postalCode}, ${favRestaurant.city}`;
+
+    const rTodayTitle = document.createElement("p");
+    rTodayTitle.classList.add('clear');
+    rTodayTitle.innerHTML = "<br><br><b>Tänään</b>";
+
+    const todayInMenu = document.createElement('p');
+
+      let todayMenuItems = [];
+      try {
+        const todayMenuItemsResponse = await data.getDailyMenu(
+          user.favouriteRestaurantId,
+          'fi'
+        );
+
+        todayMenuItems = todayMenuItemsResponse.courses;
+      } catch {
+        /* empty */
+      }
+
+      for (const {name, price, diets} of todayMenuItems) {
+        let checkedPrice = price;
+        let checkDiets = diets;
+
+        if (checkedPrice == undefined) {
+          checkedPrice =
+            '<i><span style="color: #ff0000">(Hinta ei saatavilla.)</span></i>';
+        }
+
+        if (checkDiets == undefined) {
+          checkDiets =
+            '<i><span style="color: #ff0000">(Allergeenit ei saatavilla.)</span></i>';
+        }
+
+        todayInMenu.innerHTML += `${name}  ${checkedPrice}  <strong>${checkDiets}</strong><br><br>`;
+      }
+
+      if (todayMenuItems[0] == null) {
+        todayInMenu.innerHTML =
+          '<p><i>Päivän ruokalistaa ei ole saatavilla... :(</i></p>';
+      }
+
+      const buttonDiv = document.createElement('div');
+
+      const weeklyMenuButton = document.createElement('button');
+      weeklyMenuButton.classList.add('content-card-button');
+      weeklyMenuButton.innerText = 'KATSO VIIKON RUOKALISTA';
+
+      weeklyMenuButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+        openModal()
+        displayWeeklyMenu(favRestaurant);
+      });
+
+      const openMapLocationButton = document.createElement('button');
+      openMapLocationButton.classList.add('content-card-button');
+      openMapLocationButton.innerText = 'KATSO KARTALTA';
+      openMapLocationButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        openModal();
+        displayMap(favRestaurant.location);
+      });
+
+      buttonDiv.append(weeklyMenuButton, openMapLocationButton);
+
+    content.append(rName, rContactInfo, rTodayTitle, todayInMenu, buttonDiv);
+  }
+}
+
+
+export default {openModal, closeModal, displayMap, displaySignIn, displaySignUp, displayWeeklyMenu, displayMyPage, displayChangePassword, displayFavouriteRestaurant}
