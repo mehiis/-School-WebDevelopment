@@ -1,5 +1,7 @@
 import modal from './modal.js';
 import data from '../data.js';
+import utils from '../utils.js';
+import components from '../components.js';
 
 function logOutNav(){
   const nav = document.querySelector("#desktop-navigation");

@@ -72,6 +72,8 @@ function mapAddRestaurantToMap(location) {
   map.invalidateSize();
 
   map.addLayer(layerGroup);
+
+  map.panTo(location);
 }
 
 function mapAddUserToMap(location) {

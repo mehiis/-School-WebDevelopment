@@ -73,7 +73,7 @@
       <div id="modal-content">
         <div id="map"><p id="map-dummy"></p></div>
         <div id="weekly-menu"></div>
-        <div id="sign-in">
+        <div class="dialog-content" id="sign-in">
           <h2 class="modal-title">Kirjaudu sisään</h2>
 
           <form>
@@ -98,7 +98,7 @@
             </button>
           </form>
         </div>
-        <div id="sign-up">
+        <div class="dialog-content" id="sign-up">
           <h2 class="modal-title">Rekisteröidy</h2>
 
           <form>
@@ -141,7 +141,7 @@
             </button>
           </form>
         </div>
-        <div id="my-page">
+        <div class="dialog-content" id="my-page">
           <h2 class="modal-title">Omat tiedot</h2>
 
           <form id="my-page-form">
@@ -168,21 +168,41 @@
               name="my-email"
               disabled
             />
-
-            <label for="my-email">Salasana:</label>
-            <input
-              type="password"
-              id="my-password"
-              name="my-password"
-              disabled
-              value="PASSWORD"
-            />
-
+            <p class="info-text" id="info-text-modifyuser"></p>
             <button class="search-button" id="modify-user" type="submit">
-              Muokkaa
+              Muokkaa tietoja
             </button>
             <button class="search-button" id="confirm-user" type="submit">
               Tallenna muutokset
+            </button>
+            <button class="search-button" id="open-change-password-button" type="submit">
+              Vaihda salasana
+            </button>
+          </form>
+        </div>
+        <div class="dialog-content" id="change-password">
+          <h2 class="modal-title">Vaihda salasana</h2>
+
+          <form>
+            <label for="change-password-input">Uusi salasana:</label>
+            <input
+              type="password"
+              id="change-password-input"
+              name="change-password-input"
+              placeholder="Uusi salasana..."
+              required
+            />
+            <label for="change-password-input-again">Uusi salasana uudelleen:</label>
+            <input
+              type="password"
+              id="change-password-input-again"
+              name="change-password-input-again"
+              placeholder="Uusi salasana uudelleen..."
+              required
+            />
+            <p class="info-text" id="info-text-change-password"></p>
+            <button class="search-button" id="confirm-change-password" type="submit">
+              Vaihda salasasana
             </button>
           </form>
         </div>

@@ -42,7 +42,28 @@ function hideModalContent() {
   const myPage = document.querySelector('#my-page');
   myPage.style.display = 'none';
 
+  const changePassword = document.querySelector('#change-password');
+  changePassword.style.display = 'none';
+}
 
+function displayChangePassword(){
+  const changePassword = document.querySelector('#change-password');
+  changePassword.style.display = 'block';
+  const infoText = document.querySelector("#info-text-change-password");
+
+  const confirmButton = document.querySelector("#confirm-change-password");
+  confirmButton.addEventListener('click', async(event) => {
+    event.preventDefault();
+    const newPassword = document.querySelector("#change-password-input").value;
+    const newPasswordAgain = document.querySelector("#change-password-input-again").value;
+
+    if(newPassword !== newPasswordAgain){
+      infoText.innerText = "Virhe! Uudet salasat eivät täsmää!";
+        return;
+    }
+
+    await data.changePassword(newPassword);
+  });
 }
 
 async function displayWeeklyMenu(restaurant) {
@@ -138,47 +159,74 @@ async function displayMyPage(){
   const emailInput = document.querySelector("#my-email");
   emailInput.value = userData.email;
 
-  const password = document.querySelector("#my-password");
-
   const modifyButton = document.querySelector("#modify-user");
   const confirmModificationButton = document.querySelector("#confirm-user");
+  const changePasswordButton = document.querySelector("#open-change-password-button");
+
   modifyButton.style.display = 'block';
   confirmModificationButton.style.display = 'none';
 
   usernameInput.disabled = true;
   emailInput.disabled = true;
-  password.value = "PASSWORD";
-  password.disabled = true;
+
+  let tempName = usernameInput.value;
+  let tempEmail= emailInput.value;
 
   modifyButton.addEventListener('click', (event) => {
     event.preventDefault();
 
     usernameInput.disabled = false;
     emailInput.disabled = false;
-    password.value = "";
-    password.disabled = false;
+    changePasswordButton.disabled = true;
+
 
     modifyButton.style.display = 'none';
     confirmModificationButton.style.display = 'block';
+
+    tempName = usernameInput.value;
+    tempEmail = emailInput.value;
   });
 
-  confirmModificationButton.addEventListener('click', (event) => {
+  confirmModificationButton.addEventListener('click', async (event) => {
       event.preventDefault();
+      const infoText = document.querySelector("#info-text-modifyuser");
+
+      //Make sure the modified name is not already in use!
+      const nameAvailable = await data.checkUsernameAvailability(usernameInput.value);
+      const isValidEmail = await data.validEmail(emailInput.value);
+
+      if(!nameAvailable && tempName != usernameInput.value){
+        infoText.innerText = "Virhe! Syöttämäsi nimi on jo käytössä!";
+        return;
+      }
+
+      if(!isValidEmail){
+        infoText.innerText = "Virhe! Syöttämäsi sähköposti ei kelpaa!";
+        return;
+      }
+
+      //POST MODIFIED USER DATA!
+      data.modifyUserData(usernameInput.value, emailInput.value);
 
       usernameInput.disabled = true;
       emailInput.disabled = true;
-      password.value = "PASSWORD";
-      password.disabled = true;
+      changePasswordButton.disabled = false;
 
-      //POST MODIFIED USER DATA!
 
+      infoText.innerText = "";
       confirmModificationButton.style.display = 'none';
       modifyButton.style.display = 'block';
   });
 
+  changePasswordButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    openModal();
+    displayChangePassword();
+  });
 
   myPage.style.display = 'block';
 }
 
 
-export default {openModal, closeModal, displayMap, displaySignIn, displaySignUp, displayWeeklyMenu, displayMyPage}
+export default {openModal, closeModal, displayMap, displaySignIn, displaySignUp, displayWeeklyMenu, displayMyPage, displayChangePassword}

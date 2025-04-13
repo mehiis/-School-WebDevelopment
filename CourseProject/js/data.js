@@ -106,6 +106,15 @@ async function checkUsernameAvailability(username) {
   return response.available;
 }
 
+function validEmail(email){
+  if(email.includes('@') && email.includes('.') && email.length > 3){
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
 async function registerUser(username, email, password) {
   const data = {
     username: username,
@@ -180,11 +189,76 @@ async function getUserData(){
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-
-    const response = await utils.fetchData(apiUrl + "/users/token", fetchOptions);
+    const response = await utils.fetchData(apiUrl + "/users/token", fetchOptions , {field: "asd"});
+    user.favouriteRestaurantId = response.favouriteRestaurant;
     return response;
+  } catch(e) { }
+}
+
+async function modifyUserData(newName, newEmail){
+  try {
+    const data = {
+      username: newName,
+      email: newEmail,
+    };
+
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await utils.fetchData(apiUrl + "/users", fetchOptions);
+
+    console.log(response);
   } catch {
-    console.log("error fetching user data....");
+    console.log("error modifying user data....");
+  }
+}
+
+async function changePassword(password){
+  try {
+    const data = {
+      password: password
+    };
+
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await utils.fetchData(apiUrl + "/users", fetchOptions);
+
+    console.log(response);
+  } catch {
+    console.log("error changing user password...");
+  }
+}
+
+async function addFavouriteRestaurant(id){
+  try {
+    user.favouriteRestaurantId = String(id);
+    const data = { favouriteRestaurant:id };
+
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await utils.fetchData(apiUrl + "/users", fetchOptions);
+
+    console.log(response);
+  } catch {
+    console.log("error adding favourite restaurant...");
   }
 }
 
@@ -200,9 +274,13 @@ export default {
   navSuccess,
   filterWithWord,
   checkUsernameAvailability,
+  validEmail,
   registerUser,
   loginUser,
   checkAuthorization,
   getUserData,
+  modifyUserData,
+  changePassword,
+  addFavouriteRestaurant,
   navOptions,
 };

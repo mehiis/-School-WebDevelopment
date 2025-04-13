@@ -1,7 +1,9 @@
+import components from '../components.js';
 import user from '../user.js';
 import modal from './modal.js';
 
 function logInNav(){
+  user.getUserInformation();
   const nav = document.querySelector("#desktop-navigation");
   nav.innerHTML = "";
 
@@ -11,28 +13,29 @@ function logInNav(){
   myInfoButton.innerText = "Omat tiedot"
   myInfoLi.append(myInfoButton);
 
-  const favouritesLi = document.createElement("li");
-  const favouritesButton = document.createElement("button");
-  favouritesButton.classList.add("nav-button");
-  favouritesButton.innerText = "Suosikit"
-  favouritesLi.append(favouritesButton);
-
   const logOutLi = document.createElement("li");
   const logOutButton = document.createElement("button");
   logOutButton.classList.add("nav-button");
   logOutButton.innerText = "Kirjaudu ulos"
   logOutLi.append(logOutButton);
 
-  nav.append(myInfoLi, favouritesLi, logOutLi);
+  nav.append(myInfoLi, logOutLi);
 
   logOutButton.addEventListener('click', (event) => {
     event.preventDefault();
+
+    if(components.lastHeartedIcon !== undefined){
+      components.removeLastHeartIcon(components.lastHeartedIcon);
+      console.log("remove heart??");
+    } else{
+      console.log(components.lastHeartedIcon);
+    }
+
     user.logout();
   });
 
   myInfoButton.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log("asd");
     modal.openModal();
     modal.displayMyPage();
   });
