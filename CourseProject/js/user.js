@@ -1,13 +1,29 @@
+import navigationLoggedIn from "./components/navigationLoggedIn.js";
+import navigationLoggedOut from "./components/navigationLoggedOut.js";
+import data from "./data.js";
+
 let isLogin = false;
+let favouriteRestaurantId = "";
 
-function login() {
+async function login() {
   isLogin = true;
-  console.log('Logged in ', isLogin);
+  await navigationLoggedIn.logInNav();
+  location.reload();
 }
 
-function logout() {
+async function logout() {
+  sessionStorage.removeItem('token');
+
   isLogin = false;
-  console.log('Logged out ', isLogin);
+  await navigationLoggedOut.logOutNav();
+  location.reload();
 }
 
-export default {login, logout};
+async function getUserInformation() {
+  try{
+  const info = await data.getUserData();
+  favouriteRestaurantId = info.favouriteRestaurant;
+  } catch{}
+}
+
+export default {login, logout,getUserInformation, favouriteRestaurantId};

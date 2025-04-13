@@ -2,6 +2,7 @@
 import components from './components.js';
 import utils from './utils.js';
 import user from './user.js';
+import modal from './components/modal.js';
 
 const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 
@@ -105,13 +106,21 @@ async function checkUsernameAvailability(username) {
   return response.available;
 }
 
+function validEmail(email){
+  if(email.includes('@') && email.includes('.') && email.length > 3){
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
 async function registerUser(username, email, password) {
   const data = {
     username: username,
     password: password,
     email: email,
   };
-  console.log(data);
 
   const fetchOptions = {
     method: 'POST',
@@ -126,9 +135,6 @@ async function registerUser(username, email, password) {
     fetchOptions
   );
   const json = await response.json();
-
-  console.log(json);
-
   return response.status;
 }
 
@@ -152,24 +158,108 @@ async function loginUser(username, password) {
       fetchOptions
     );
 
-    // console.log('response< ::: ', response);
+    window.sessionStorage.setItem('token', response.token);
 
-    if (response.ok) {
-      console.log('asd');
-      await user.login();
-    }
+    modal.closeModal();
+    user.login();
   } catch {
     console.log('Login failed.');
   }
+}
 
-  // if (response !== 200) {
-  //   console.log("jotai");
-  // } else {
-  //   // save token and user
-  //   window.sessionStorage.setItem('token', json.token);
-  //   window.sessionStorage.setItem('user', JSON.stringify(json.username));
-  //   //username = JSON.parse(window.sessionStorage.getItem('user'));
-  // }
+async function checkAuthorization(){
+  try {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+
+    const response = await utils.fetchData(apiUrl + "/users/token", fetchOptions);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function getUserData(){
+  try {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await utils.fetchData(apiUrl + "/users/token", fetchOptions , {field: "asd"});
+    user.favouriteRestaurantId = response.favouriteRestaurant;
+    return response;
+  } catch(e) { }
+}
+
+async function modifyUserData(newName, newEmail){
+  try {
+    const data = {
+      username: newName,
+      email: newEmail,
+    };
+
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await utils.fetchData(apiUrl + "/users", fetchOptions);
+
+    console.log(response);
+  } catch {
+    console.log("error modifying user data....");
+  }
+}
+
+async function changePassword(password){
+  try {
+    const data = {
+      password: password
+    };
+
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await utils.fetchData(apiUrl + "/users", fetchOptions);
+
+    console.log(response);
+  } catch {
+    console.log("error changing user password...");
+  }
+}
+
+async function addFavouriteRestaurant(id){
+  try {
+    user.favouriteRestaurantId = String(id);
+    const data = { favouriteRestaurant:id };
+
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await utils.fetchData(apiUrl + "/users", fetchOptions);
+
+    console.log(response);
+  } catch {
+    console.log("error adding favourite restaurant...");
+  }
 }
 
 export default {
@@ -184,7 +274,13 @@ export default {
   navSuccess,
   filterWithWord,
   checkUsernameAvailability,
+  validEmail,
   registerUser,
   loginUser,
+  checkAuthorization,
+  getUserData,
+  modifyUserData,
+  changePassword,
+  addFavouriteRestaurant,
   navOptions,
 };
