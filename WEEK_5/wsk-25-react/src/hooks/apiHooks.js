@@ -30,4 +30,63 @@ function useMedia() {
   return mediaArray;
 }
 
-export default useMedia;
+const useAuth = () => {
+  const postLogin = async (inputs) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+
+    const loginResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/auth/login',
+      fetchOptions,
+    );
+    window.localStorage.setItem('ilkan-token', loginResult.token);
+    //window.localStorage.getItem('token');
+
+    return loginResult;
+  };
+
+  return {postLogin};
+};
+
+const useUser = () => {
+  const postUser = async (inputs) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+    return await fetchData(
+      import.meta.env.VITE_AUTH_API + '/users',
+      fetchOptions,
+    );
+  };
+
+  const getUserByToken = async (token) => {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer: ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const userResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/users/token',
+      fetchOptions,
+    );
+
+    console.log('userResult', userResult);
+
+    return userResult;
+  };
+
+  return {getUserByToken, postUser};
+};
+
+export {useMedia, useAuth, useUser};

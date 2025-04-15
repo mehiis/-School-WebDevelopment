@@ -36,7 +36,7 @@
               type="text"
               id="restaurant-search"
               name="restaurant-search"
-              placeholder="Etsi ravintola..."
+              placeholder="Hae ravintolaa..."
             />
             <button class="search-button" type="submit"></button>
           </form>
@@ -52,9 +52,7 @@
         </div>
 
         <div class="nav-column" id="desktop-menu">
-          <ul id="desktop-navigation">
-
-          </ul>
+          <ul id="desktop-navigation"></ul>
         </div>
       </div>
       <hr class="separator" />
@@ -146,28 +144,13 @@
 
           <form id="my-page-form">
             <label for="my-id">ID:</label>
-            <input
-              type="text"
-              id="my-id"
-              name="my-id"
-              disabled
-            />
+            <input type="text" id="my-id" name="my-id" disabled />
 
             <label for="my-username">Käyttäjätunnus:</label>
-            <input
-              type="text"
-              id="my-username"
-              name="my-username"
-              disabled
-            />
+            <input type="text" id="my-username" name="my-username" disabled />
 
             <label for="my-email">Sähköposti:</label>
-            <input
-              type="text"
-              id="my-email"
-              name="my-email"
-              disabled
-            />
+            <input type="text" id="my-email" name="my-email" disabled />
             <p class="info-text" id="info-text-modifyuser"></p>
             <button class="search-button" id="modify-user" type="submit">
               Muokkaa tietoja
@@ -175,7 +158,11 @@
             <button class="search-button" id="confirm-user" type="submit">
               Tallenna muutokset
             </button>
-            <button class="search-button" id="open-change-password-button" type="submit">
+            <button
+              class="search-button"
+              id="open-change-password-button"
+              type="submit"
+            >
               Vaihda salasana
             </button>
           </form>
@@ -192,7 +179,9 @@
               placeholder="Uusi salasana..."
               required
             />
-            <label for="change-password-input-again">Uusi salasana uudelleen:</label>
+            <label for="change-password-input-again"
+              >Uusi salasana uudelleen:</label
+            >
             <input
               type="password"
               id="change-password-input-again"
@@ -201,7 +190,11 @@
               required
             />
             <p class="info-text" id="info-text-change-password"></p>
-            <button class="search-button" id="confirm-change-password" type="submit">
+            <button
+              class="search-button"
+              id="confirm-change-password"
+              type="submit"
+            >
               Vaihda salasasana
             </button>
           </form>
@@ -212,5 +205,7 @@
         </div>
       </div>
     </dialog>
+
+    <dialog id="mobile-menu-modal"></dialog>
   </body>
 </html>

@@ -1,9 +1,9 @@
-import navigationLoggedIn from "./components/navigationLoggedIn.js";
-import navigationLoggedOut from "./components/navigationLoggedOut.js";
-import data from "./data.js";
+import navigationLoggedIn from './components/navigationLoggedIn.js';
+import navigationLoggedOut from './components/navigationLoggedOut.js';
+import data from './data.js';
 
 let isLogin = false;
-let favouriteRestaurantId = "";
+let favouriteRestaurantId = '';
 
 async function login() {
   isLogin = true;
@@ -20,10 +20,16 @@ async function logout() {
 }
 
 async function getUserInformation() {
-  try{
-  const info = await data.getUserData();
-  favouriteRestaurantId = info.favouriteRestaurant;
-  } catch{}
+  try {
+    const info = await data.getUserData();
+    favouriteRestaurantId = info.favouriteRestaurant;
+  } catch {}
 }
 
-export default {login, logout,getUserInformation, favouriteRestaurantId};
+export default {
+  login,
+  logout,
+  getUserInformation,
+  favouriteRestaurantId,
+  isLogin,
+};
