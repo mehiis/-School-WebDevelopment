@@ -5,7 +5,7 @@ import navigationLoggedIn from './components/navigationLoggedIn.js';
 import navigationLoggedOut from './components/navigationLoggedOut.js';
 import user from './user.js';
 
-let previousSearchWord = "";
+let previousSearchWord = '';
 let lastHeartedIcon;
 let searchDone = true;
 
@@ -13,22 +13,24 @@ let searchDone = true;
 const searchButton = document.querySelector('.search-button');
 searchButton.addEventListener('click', async (event) => {
   event.preventDefault();
-  if(searchDone){
-  const search = document.querySelector('#restaurant-search');
+  if (searchDone) {
+    const search = document.querySelector('#restaurant-search');
 
-  if (previousSearchWord !== search.value) {
-    await data.filterWithWord(search.value);
-    previousSearchWord = search.value;
+    if (previousSearchWord !== search.value) {
+      await data.filterWithWord(search.value);
+      previousSearchWord = search.value;
+    }
   }
-}
 });
 
-async function loadNavBar(){
+async function loadNavBar() {
   const isLoggedIn = await data.checkAuthorization();
-  if(!isLoggedIn){
+
+  if (!isLoggedIn) {
     navigationLoggedOut.logOutNav();
   } else {
-    navigationLoggedIn.logInNav(); }
+    navigationLoggedIn.logInNav();
+  }
 }
 
 async function createCards(listOfRestaurants) {
@@ -38,7 +40,7 @@ async function createCards(listOfRestaurants) {
   content.innerHTML = ''; //MAKE SURE THE CONTENT IS EMPTY.
 
   //CHECK IF THE LIST IS EMPTY, THEN DISPLAY ERROR MESSAGE, ELSE LOOP THROUGHT EVERY RESTAURANT AND CREATE CONTENT CARDS.
-  if(listOfRestaurants.length === 0){
+  if (listOfRestaurants.length === 0) {
     const article = document.createElement('article');
     article.classList.add('content-card');
 
@@ -51,7 +53,7 @@ async function createCards(listOfRestaurants) {
     errorText.innerText = `Hakusanalla "${search.value}" ei löytynyt yhtään ravintolaa...`;
     cardHeader.append(errorText);
     content.append(article);
-  } else{
+  } else {
     for (const restaurant of listOfRestaurants) {
       await createContentCard(restaurant);
     }
@@ -80,26 +82,44 @@ async function createContentCard(restaurant) {
   const heartIcon = document.createElement('img');
   heartIcon.classList.add('heart-icon');
 
-  if(user.favouriteRestaurantId === restaurant._id){
+  try {
+    const info = await data.getUserData();
+    const favouriteRestaurantId = info.favouriteRestaurant;
+
+    if (favouriteRestaurantId === restaurant._id) {
+      lastHeartedIcon = heartIcon;
+      heartIcon.src = './img/heart-selected.png';
+      heartIcon.alt =
+        'Icon picture indicating that this is selected as a favourite restaurant.';
+    } else {
+      removeLastHeartIcon(heartIcon);
+    }
+  } catch {
+    removeLastHeartIcon(heartIcon);
+  }
+
+  heartButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const isLoggedIn = await data.checkAuthorization();
+
+    if (!isLoggedIn) {
+      modal.openModal();
+      modal.displaySignIn();
+      return;
+    }
+
+    if (lastHeartedIcon !== undefined) {
+      removeLastHeartIcon(lastHeartedIcon);
+    }
+
     lastHeartedIcon = heartIcon;
     heartIcon.src = './img/heart-selected.png';
     heartIcon.alt =
-      'Icon picture indicating that this is selected as a favourite restautrant.';
-  }else{
-    removeLastHeartIcon(heartIcon);
-  }
-    heartButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      if(lastHeartedIcon !== undefined){
-        removeLastHeartIcon(lastHeartedIcon);
-      }
-
-      lastHeartedIcon = heartIcon;
-      heartIcon.src = './img/heart-selected.png';
-      heartIcon.alt = "Icon picture indicating that this is selected as a favourite restautrant.";
-      data.addFavouriteRestaurant(restaurant._id);
-      console.log(restaurant.name + ' added to favourites.');
-    });
+      'Icon picture indicating that this is selected as a favourite restaurant.';
+    data.addFavouriteRestaurant(restaurant._id);
+    console.log(restaurant.name + ' added to favourites.');
+  });
 
   heartButton.append(heartIcon);
 
@@ -156,7 +176,7 @@ async function createContentCard(restaurant) {
 
   weeklyMenuButton.addEventListener('click', async (event) => {
     event.preventDefault();
-    modal.openModal()
+    modal.openModal();
     modal.displayWeeklyMenu(restaurant);
   });
 
@@ -181,14 +201,14 @@ async function createContentCard(restaurant) {
     todayHeader,
     todayInMenu,
     buttonDiv,
-    separator,
+    separator
   );
 }
 
-function removeLastHeartIcon(icon){
+function removeLastHeartIcon(icon) {
   icon.src = './img/heart-unselected.png';
   icon.alt =
     'Icon picture indicating that this is selected as a favourite restautrant.';
 }
 
-export default {createCards, loadNavBar, lastHeartedIcon, removeLastHeartIcon};
+export default {createCards, loadNavBar, removeLastHeartIcon, lastHeartedIcon};
