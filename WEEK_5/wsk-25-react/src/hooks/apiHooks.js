@@ -40,14 +40,10 @@ const useAuth = () => {
       body: JSON.stringify(inputs),
     };
 
-    const loginResult = await fetchData(
+    return await fetchData(
       import.meta.env.VITE_AUTH_API + '/auth/login',
       fetchOptions,
     );
-    window.localStorage.setItem('ilkan-token', loginResult.token);
-    //window.localStorage.getItem('token');
-
-    return loginResult;
   };
 
   return {postLogin};

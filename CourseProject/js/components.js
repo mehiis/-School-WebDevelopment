@@ -4,6 +4,7 @@ import modal from './components/modal.js';
 import navigationLoggedIn from './components/navigationLoggedIn.js';
 import navigationLoggedOut from './components/navigationLoggedOut.js';
 import user from './user.js';
+import toggleMobileMenu from './components/mobileMenu.js';
 
 let previousSearchWord = '';
 let lastHeartedIcon;
@@ -21,6 +22,12 @@ searchButton.addEventListener('click', async (event) => {
       previousSearchWord = search.value;
     }
   }
+});
+
+const mobileMenuButton = document.querySelector('#mobile-menu-button');
+mobileMenuButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  toggleMobileMenu();
 });
 
 async function loadNavBar() {
