@@ -1,8 +1,8 @@
-[WEBSITE DEMO](https://users.metropolia.fi/~nikomeh/WebSoftwareDevelopment/WEEK_4/hooks/)
+[WEBSITE DEMO](https://users.metropolia.fi/~nikomeh/WebSoftwareDevelopment/WEEK_5/custom-hooks/)
 
 # React + Vite
 
-Open [WEBSITE DEMO](https://users.metropolia.fi/~nikomeh/WebSoftwareDevelopment/WEEK_4/routing/) to view it in the browser.
+Open [WEBSITE DEMO](https://users.metropolia.fi/~nikomeh/WebSoftwareDevelopment/WEEK_5/custom-hooks/) to view it in the browser.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
