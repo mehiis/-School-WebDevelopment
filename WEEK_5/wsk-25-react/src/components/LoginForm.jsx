@@ -1,12 +1,9 @@
-// LoginForm.jsx
-
+// LoginForm.jsxx
 import useForm from '../hooks/formHooks';
-import {useAuth} from '../hooks/apiHooks';
-import {useNavigate} from 'react-router';
+import {useUserContext} from '../hooks/contextHooks';
 
 const LoginForm = () => {
-  const {postLogin} = useAuth();
-  const nav = useNavigate();
+  const {handleLogin} = useUserContext();
 
   const initValues = {
     username: '',
@@ -14,9 +11,11 @@ const LoginForm = () => {
   };
 
   const doLogin = async () => {
-    // TODO: add login functionalities here
-    await postLogin(inputs);
-    nav('/');
+    try {
+      await handleLogin(inputs);
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   const {inputs, handleInputChange, handleSubmit} = useForm(

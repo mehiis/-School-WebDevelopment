@@ -35,6 +35,10 @@ body {
   background-color: var(--white-color);
 }
 
+header {
+  height: 6rem;
+}
+
 #map {
   height: 70vh;
   border-radius: 0.5rem;
@@ -89,7 +93,8 @@ img {
   /*width set platform specific*/
 }
 
-.nav-column > form > input, .dialog-content > form > input {
+.nav-column > form > input,
+.dialog-content > form > input {
   border-radius: 1rem;
   border-color: transparent;
   background-color: var(--gray-color);
@@ -224,7 +229,8 @@ img {
   margin-bottom: 2rem;
 }
 
-.content-card-button, .dialog-content > form > button {
+.content-card-button,
+.dialog-content > form > button {
   border: 0;
   background-color: var(--primary-color);
   color: var(--white-color);
@@ -235,7 +241,8 @@ img {
   margin-right: 8px;
 }
 
-.content-card-button:hover, .dialog-content > form > button:hover {
+.content-card-button:hover,
+.dialog-content > form > button:hover {
   background-color: var(--secundary-color);
   transition: transform 0.2s;
   transform: scale(1.03);
@@ -272,7 +279,7 @@ img {
 #close-modal-button {
   background-color: transparent;
   border-color: transparent;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
   color: var(--primary-color);
   font-weight: bolder;
@@ -294,30 +301,32 @@ img {
   font-size: xx-large;
 }
 
-.nav-button{
+.nav-button {
   background-color: transparent;
   border-color: transparent;
 }
 
-.dialog-content > *{
-display: grid;
-justify-content: center;
-margin-bottom: 3rem;
-font-family: custom;
+.dialog-content > * {
+  display: grid;
+  justify-content: center;
+  margin-bottom: 3rem;
+  font-family: custom;
 }
 
-.modal-title{
+.modal-title {
   color: var(--primary-color);
   font-size: 2.3rem;
-  }
+}
 
-.dialog-content > form > input{ margin-bottom: 2rem; }
+.dialog-content > form > input {
+  margin-bottom: 2rem;
+}
 
-.info-text{
+.info-text {
   color: red;
   font-size: x-small;
 }
 
-.search-button{
+.search-button {
   margin: 8px;
 }
