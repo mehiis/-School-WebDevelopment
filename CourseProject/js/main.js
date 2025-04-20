@@ -3,7 +3,6 @@
 import components from './components.js';
 import data from './data.js';
 
-
 async function main() {
   components.loadNavBar();
   data.fetchAllRestaurants(); //Fetch all restaurants to an array.

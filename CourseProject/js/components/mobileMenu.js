@@ -2,12 +2,12 @@ let toggle = false;
 
 function toggleMobileMenu() {
   toggle = !toggle;
-  const menu = document.querySelector("#mobile-menu-modal");
+  const menu = document.querySelector('#mobile-menu-modal');
 
-  if(toggle){
+  if (toggle) {
     console.log('open mobile menu');
     menu.showModal();
-  } else{
+  } else {
     console.log('close mobile menu');
     menu.close();
   }

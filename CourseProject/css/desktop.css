@@ -12,8 +12,8 @@ header {
   top: 1rem;
 }
 
-ul,desktop-navigation
-li {
+ul,
+desktop-navigation li {
   text-decoration: none;
   list-style-type: none;
 }
@@ -38,7 +38,8 @@ li {
   display: flex;
 }
 
-#desktop-navigation > * > * > *, #desktop-navigation > * > * {
+#desktop-navigation > * > * > *,
+#desktop-navigation > * > * {
   text-decoration: none;
   list-style-type: none;
   margin-left: 10px;
@@ -49,7 +50,8 @@ li {
   white-space: nowrap;
 }
 
-#desktop-navigation > * > *:hover, #desktop-navigation > * > * >*:hover {
+#desktop-navigation > * > *:hover,
+#desktop-navigation > * > * > *:hover {
   color: var(--secundary-color);
   transition: transform 0.4s;
   transform: scale(1.1);

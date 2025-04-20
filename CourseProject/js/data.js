@@ -171,25 +171,24 @@ async function loginUser(username, password) {
     return response;
   } catch {
     //login failed
-
   }
 }
 
 async function checkAuthorization() {
   try {
-    if(window.sessionStorage.getItem("token")){
-    const fetchOptions = {
-      headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-      },
-    };
+    if (window.sessionStorage.getItem('token')) {
+      const fetchOptions = {
+        headers: {
+          Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      };
 
-    const response = await utils.fetchData(
-      apiUrl + '/users/token',
-      fetchOptions
-    );
-    return true;
-  }
+      const response = await utils.fetchData(
+        apiUrl + '/users/token',
+        fetchOptions
+      );
+      return true;
+    }
   } catch {
     return false;
   }
@@ -204,7 +203,7 @@ async function getUserData() {
     };
     const response = await utils.fetchData(
       apiUrl + '/users/token',
-      fetchOptions,
+      fetchOptions
     );
 
     user.favouriteRestaurantId = response.favouriteRestaurant;
@@ -229,7 +228,6 @@ async function modifyUserData(newName, newEmail) {
     };
 
     const response = await utils.fetchData(apiUrl + '/users', fetchOptions);
-
   } catch {
     //error modifying user data...
   }
@@ -277,7 +275,7 @@ async function addFavouriteRestaurant(id) {
 async function uploadAvatar(data) {
   try {
     const formData = new FormData();
-    formData.append("avatar", data);
+    formData.append('avatar', data);
 
     const fetchOptions = {
       method: 'POST',
@@ -287,8 +285,8 @@ async function uploadAvatar(data) {
       body: formData,
     };
 
-    await utils.fetchData(apiUrl + "/users/avatar", fetchOptions);
-  } catch(e) {
+    await utils.fetchData(apiUrl + '/users/avatar', fetchOptions);
+  } catch (e) {
     console.log(e.message);
   }
 }
@@ -315,5 +313,5 @@ export default {
   changePassword,
   addFavouriteRestaurant,
   getRestaurantById,
-  uploadAvatar
+  uploadAvatar,
 };

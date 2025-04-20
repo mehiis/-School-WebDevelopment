@@ -53,41 +53,40 @@ function logInNav() {
   });
 }
 
-function logInNavMobile(){
+function logInNavMobile() {
   const nav = document.querySelector('#mobile-menu-modal');
   nav.innerHTML = '';
 
   //CLOSE BUTTON
-  const closeLi = document.createElement("li");
-  const closeButton = document.createElement("button");
-  closeButton.classList.add("close-menu-button");
-  closeButton.innerHTML = "&#10006;";
+  const closeLi = document.createElement('li');
+  const closeButton = document.createElement('button');
+  closeButton.classList.add('close-menu-button');
+  closeButton.innerHTML = '&#10006;';
   closeLi.append(closeButton);
 
   //MY INFOMARTION BUTTON
-  const myInfoLi = document.createElement("li");
-  const myInfoButton = document.createElement("button");
-  myInfoButton.innerText = "Omat tiedot";
-  myInfoButton.classList.add("menu-button");
+  const myInfoLi = document.createElement('li');
+  const myInfoButton = document.createElement('button');
+  myInfoButton.innerText = 'Omat tiedot';
+  myInfoButton.classList.add('menu-button');
   myInfoLi.append(myInfoButton);
 
   //FAV RESTAURANT BUTTON
-  const favRestaurantLi = document.createElement("li");
-  const favRestaurantButton = document.createElement("button");
-  favRestaurantButton.innerText = "Suosikki ravintola";
-  favRestaurantButton.classList.add("menu-button");
+  const favRestaurantLi = document.createElement('li');
+  const favRestaurantButton = document.createElement('button');
+  favRestaurantButton.innerText = 'Suosikki ravintola';
+  favRestaurantButton.classList.add('menu-button');
   favRestaurantLi.append(favRestaurantButton);
 
   //LOGOUT BUTTON
-  const logoutLi = document.createElement("li");
-  const logoutButton = document.createElement("button");
-  logoutButton.innerText = "Kirjaudu ulos";
-  logoutButton.classList.add("menu-button");
+  const logoutLi = document.createElement('li');
+  const logoutButton = document.createElement('button');
+  logoutButton.innerText = 'Kirjaudu ulos';
+  logoutButton.classList.add('menu-button');
   logoutLi.append(logoutButton);
 
-
-  const content = document.createElement("ul");
-  content.classList.add("list-strip");
+  const content = document.createElement('ul');
+  content.classList.add('list-strip');
   content.append(closeLi, myInfoLi, favRestaurantLi, logoutLi);
   nav.append(content);
 

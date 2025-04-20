@@ -90,18 +90,18 @@ async function createContentCard(restaurant) {
   heartIcon.classList.add('heart-icon');
 
   try {
-    if(window.sessionStorage.getItem("token")){
-    const info = await data.getUserData();
-    const favouriteRestaurantId = info.favouriteRestaurant;
+    if (window.sessionStorage.getItem('token')) {
+      const info = await data.getUserData();
+      const favouriteRestaurantId = info.favouriteRestaurant;
 
-    if (favouriteRestaurantId === restaurant._id) {
-      lastHeartedIcon = heartIcon;
-      heartIcon.src = './img/heart-selected.png';
-      heartIcon.alt =
-        'Icon picture indicating that this is selected as a favourite restaurant.';
-    }else {
-      removeLastHeartIcon(heartIcon);
-    }
+      if (favouriteRestaurantId === restaurant._id) {
+        lastHeartedIcon = heartIcon;
+        heartIcon.src = './img/heart-selected.png';
+        heartIcon.alt =
+          'Icon picture indicating that this is selected as a favourite restaurant.';
+      } else {
+        removeLastHeartIcon(heartIcon);
+      }
     }
   } catch {
     removeLastHeartIcon(heartIcon);

@@ -26,7 +26,6 @@ function closeMobileModal() {
   mdl.close();
 }
 
-
 function hideModalContent() {
   const map = document.querySelector('#map');
   map.style.display = 'none';
@@ -56,26 +55,26 @@ function hideModalContent() {
   const favouriteRestaurant = document.querySelector('#favourite-restaurant');
   favouriteRestaurant.style.display = 'none';
 
-  const changeAvatar = document.querySelector("#upload-avatar");
+  const changeAvatar = document.querySelector('#upload-avatar');
   changeAvatar.style.display = 'none';
 }
 
-function displayChangeAvatar(){
-  const changeAvatar = document.querySelector("#upload-avatar");
+function displayChangeAvatar() {
+  const changeAvatar = document.querySelector('#upload-avatar');
   changeAvatar.style.display = 'block';
 
-  const confirmButton = document.querySelector("#confirm-change-avatar");
+  const confirmButton = document.querySelector('#confirm-change-avatar');
 
   confirmButton.addEventListener('click', async (event) => {
     event.preventDefault();
 
-    const input = document.querySelector("#new-avatar");
+    const input = document.querySelector('#new-avatar');
     const avatar = input.files[0];
     await data.uploadAvatar(avatar);
 
     openModal();
     displayMyPage();
-  })
+  });
 }
 
 function displayChangePassword() {
@@ -188,11 +187,11 @@ async function displayMyPage() {
   const userData = await data.getUserData();
   const myPage = document.querySelector('#my-page');
 
-  const avatar = document.querySelector(".avatar-icon");
-  if(userData.avatar !== undefined){
-    avatar.src = `https://media2.edu.metropolia.fi/restaurant/uploads/${userData.avatar}`
-  }else{
-    avatar.src = "./img/noprofile.png"
+  const avatar = document.querySelector('.avatar-icon');
+  if (userData.avatar !== undefined) {
+    avatar.src = `https://media2.edu.metropolia.fi/restaurant/uploads/${userData.avatar}`;
+  } else {
+    avatar.src = './img/noprofile.png';
   }
 
   const idInput = document.querySelector('#my-id');
@@ -206,7 +205,9 @@ async function displayMyPage() {
 
   const modifyButton = document.querySelector('#modify-user');
   const confirmModificationButton = document.querySelector('#confirm-user');
-  const changePasswordButton = document.querySelector('#open-change-password-button');
+  const changePasswordButton = document.querySelector(
+    '#open-change-password-button'
+  );
   const changeAvatarButton = document.querySelector('#change-avatar');
 
   modifyButton.style.display = 'block';
@@ -235,6 +236,7 @@ async function displayMyPage() {
   confirmModificationButton.addEventListener('click', async (event) => {
     event.preventDefault();
     const infoText = document.querySelector('#info-text-modifyuser');
+    infoText.innerText = '';
 
     //Make sure the modified name is not already in use!
     const nameAvailable = await data.checkUsernameAvailability(
