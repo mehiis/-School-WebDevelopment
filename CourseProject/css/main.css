@@ -35,10 +35,6 @@ body {
   background-color: var(--white-color);
 }
 
-header {
-  height: 6rem;
-}
-
 #map {
   height: 70vh;
   border-radius: 0.5rem;
@@ -58,8 +54,17 @@ img {
 }
 
 .clear {
-  margin: 0;
+  margin-top: 0;
   padding: 0;
+}
+
+.margin-vertical{
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.list-strip{
+  list-style-type: none;
 }
 
 .menu {
@@ -330,3 +335,13 @@ img {
 .search-button {
   margin: 8px;
 }
+
+#my-page-form img{
+  justify-items: center;
+  border-radius: 15rem;
+  width: 10rem;
+  margin: auto;
+
+}
+
+

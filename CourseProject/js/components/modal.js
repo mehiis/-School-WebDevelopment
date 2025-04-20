@@ -20,6 +20,13 @@ function closeModal() {
   mdl.close();
 }
 
+function closeMobileModal() {
+  hideModalContent();
+  const mdl = document.querySelector('#mobile-menu-modal');
+  mdl.close();
+}
+
+
 function hideModalContent() {
   const map = document.querySelector('#map');
   map.style.display = 'none';
@@ -48,6 +55,27 @@ function hideModalContent() {
 
   const favouriteRestaurant = document.querySelector('#favourite-restaurant');
   favouriteRestaurant.style.display = 'none';
+
+  const changeAvatar = document.querySelector("#upload-avatar");
+  changeAvatar.style.display = 'none';
+}
+
+function displayChangeAvatar(){
+  const changeAvatar = document.querySelector("#upload-avatar");
+  changeAvatar.style.display = 'block';
+
+  const confirmButton = document.querySelector("#confirm-change-avatar");
+
+  confirmButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const input = document.querySelector("#new-avatar");
+    const avatar = input.files[0];
+    await data.uploadAvatar(avatar);
+
+    openModal();
+    displayMyPage();
+  })
 }
 
 function displayChangePassword() {
@@ -64,17 +92,22 @@ function displayChangePassword() {
     ).value;
 
     if (newPassword !== newPasswordAgain) {
-      infoText.innerText = 'Virhe! Uudet salasanat eivät täsmää!';
+      infoText.innerText = 'Virhe! Kirjoittamasi salasanat eivät täsmää!';
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      infoText.innerText = 'Virhe! Salasana on oltava väh. 8 merkkiä!';
       return;
     }
 
     await data.changePassword(newPassword);
+    openModal();
+    displayMyPage();
   });
 }
 
 async function displayWeeklyMenu(restaurant) {
-  console.log('r', restaurant);
-
   const weeklyMenu = document.querySelector('#weekly-menu');
   weeklyMenu.innerHTML = '';
 
@@ -155,6 +188,13 @@ async function displayMyPage() {
   const userData = await data.getUserData();
   const myPage = document.querySelector('#my-page');
 
+  const avatar = document.querySelector(".avatar-icon");
+  if(userData.avatar !== undefined){
+    avatar.src = `https://media2.edu.metropolia.fi/restaurant/uploads/${userData.avatar}`
+  }else{
+    avatar.src = "./img/noprofile.png"
+  }
+
   const idInput = document.querySelector('#my-id');
   idInput.value = userData._id;
 
@@ -166,9 +206,8 @@ async function displayMyPage() {
 
   const modifyButton = document.querySelector('#modify-user');
   const confirmModificationButton = document.querySelector('#confirm-user');
-  const changePasswordButton = document.querySelector(
-    '#open-change-password-button'
-  );
+  const changePasswordButton = document.querySelector('#open-change-password-button');
+  const changeAvatarButton = document.querySelector('#change-avatar');
 
   modifyButton.style.display = 'block';
   confirmModificationButton.style.display = 'none';
@@ -232,6 +271,13 @@ async function displayMyPage() {
     displayChangePassword();
   });
 
+  changeAvatarButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    openModal();
+    displayChangeAvatar();
+  });
+
   myPage.style.display = 'block';
 }
 
@@ -255,7 +301,6 @@ async function displayFavouriteRestaurant() {
     const favRestaurant = await data.getRestaurantById(
       user.favouriteRestaurantId
     );
-    console.log('user favourite restaurant', favRestaurant);
 
     const rName = document.createElement('h2');
     rName.innerHTML = favRestaurant.name + ' (' + favRestaurant.company + ')';
@@ -296,7 +341,7 @@ async function displayFavouriteRestaurant() {
           '<i><span style="color: #ff0000">(Allergeenit ei saatavilla.)</span></i>';
       }
 
-      todayInMenu.innerHTML += `${name}  ${checkedPrice}  <strong>${checkDiets}</strong><br><br>`;
+      todayInMenu.innerHTML += `${name}  ${checkedPrice} <strong>${checkDiets}</strong><br><br>`;
     }
 
     if (todayMenuItems[0] == null) {
@@ -335,11 +380,13 @@ async function displayFavouriteRestaurant() {
 export default {
   openModal,
   closeModal,
+  closeMobileModal,
   displayMap,
   displaySignIn,
   displaySignUp,
   displayWeeklyMenu,
   displayMyPage,
   displayChangePassword,
+  displayChangeAvatar,
   displayFavouriteRestaurant,
 };

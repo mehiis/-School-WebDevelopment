@@ -2,6 +2,10 @@
   height: 4rem;
 }
 
+header {
+  height: 6rem;
+}
+
 #search-column {
   margin: 0;
   position: relative;

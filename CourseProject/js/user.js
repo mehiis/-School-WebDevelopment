@@ -21,8 +21,10 @@ async function logout() {
 
 async function getUserInformation() {
   try {
-    const info = await data.getUserData();
-    favouriteRestaurantId = info.favouriteRestaurant;
+    if(window.sessionStorage.getItem("token")){
+      const info = await data.getUserData();
+      favouriteRestaurantId = info.favouriteRestaurant;
+    }
   } catch {}
 }
 

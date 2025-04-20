@@ -92,6 +92,7 @@
               placeholder="Salasana..."
               required
             />
+            <p class="info-text" id="info-text-login"></p>
             <button class="search-button" id="login-button" type="submit">
               Kirjaudu sisään
             </button>
@@ -144,6 +145,9 @@
           <h2 class="modal-title">Omat tiedot</h2>
 
           <form id="my-page-form">
+            <img class="avatar-icon" src="./img/noprofile.png" alt="Your avatar profile picture">
+            <button id="change-avatar" class="margin-vertical" type="submit">Vaihda profiilikuva</button>
+
             <label for="my-id">ID:</label>
             <input type="text" id="my-id" name="my-id" disabled />
 
@@ -197,6 +201,28 @@
               type="submit"
             >
               Vaihda salasasana
+            </button>
+          </form>
+        </div>
+        <div class="dialog-content" id="upload-avatar">
+          <h2 class="modal-title">Vaihda profiilikuva</h2>
+
+          <form>
+            <label for="new-avatar">Lataa uusi profiilikuva:</label>
+            <input
+              type="file"
+              id="new-avatar"
+              name="filename"
+              accept="image/jpeg, image/png, image/jpg"
+              required
+            />
+            <p class="info-text" id="info-text-change-avatar"></p>
+            <button
+              class="search-button"
+              id="confirm-change-avatar"
+              type="submit"
+            >
+              Vaihda
             </button>
           </form>
         </div>

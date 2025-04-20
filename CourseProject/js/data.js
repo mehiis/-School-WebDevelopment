@@ -18,7 +18,7 @@ async function fetchAllRestaurants() {
 
     navigator.geolocation.getCurrentPosition(navSuccess, navError, navOptions);
   } catch {
-    console.log('Could not fetch restaurants data.');
+    //could not fetch data...
   }
 }
 
@@ -98,9 +98,7 @@ function navSuccess(pos) {
 }
 
 // Function to be called if an error occurs while retrieving location information
-function navError(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-
+function navError() {
   updateRestaurantsToLoad();
   components.createCards(listOfRestaurantsToShow);
 }
@@ -169,13 +167,17 @@ async function loginUser(username, password) {
 
     modal.closeModal();
     user.login();
+
+    return response;
   } catch {
-    console.log('Login failed.');
+    //login failed
+
   }
 }
 
 async function checkAuthorization() {
   try {
+    if(window.sessionStorage.getItem("token")){
     const fetchOptions = {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
@@ -187,6 +189,7 @@ async function checkAuthorization() {
       fetchOptions
     );
     return true;
+  }
   } catch {
     return false;
   }
@@ -202,8 +205,8 @@ async function getUserData() {
     const response = await utils.fetchData(
       apiUrl + '/users/token',
       fetchOptions,
-      {field: 'asd'}
     );
+
     user.favouriteRestaurantId = response.favouriteRestaurant;
     return response;
   } catch (e) {}
@@ -227,9 +230,8 @@ async function modifyUserData(newName, newEmail) {
 
     const response = await utils.fetchData(apiUrl + '/users', fetchOptions);
 
-    console.log(response);
   } catch {
-    console.log('error modifying user data....');
+    //error modifying user data...
   }
 }
 
@@ -248,10 +250,8 @@ async function changePassword(password) {
       body: JSON.stringify(data),
     };
     const response = await utils.fetchData(apiUrl + '/users', fetchOptions);
-
-    console.log(response);
   } catch {
-    console.log('error changing user password...');
+    //Error changing player password...
   }
 }
 
@@ -269,10 +269,27 @@ async function addFavouriteRestaurant(id) {
       body: JSON.stringify(data),
     };
     const response = await utils.fetchData(apiUrl + '/users', fetchOptions);
-
-    console.log(response);
   } catch {
-    console.log('error adding favourite restaurant...');
+    //error adding new password
+  }
+}
+
+async function uploadAvatar(data) {
+  try {
+    const formData = new FormData();
+    formData.append("avatar", data);
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
+      body: formData,
+    };
+
+    await utils.fetchData(apiUrl + "/users/avatar", fetchOptions);
+  } catch(e) {
+    console.log(e.message);
   }
 }
 
@@ -298,4 +315,5 @@ export default {
   changePassword,
   addFavouriteRestaurant,
   getRestaurantById,
+  uploadAvatar
 };

@@ -1,5 +1,3 @@
-import data from './data.js';
-
 let mapInitialized = false;
 const map = L.map('map').setView([60.17, 24.945831], 12);
 let layerGroup = L.layerGroup();

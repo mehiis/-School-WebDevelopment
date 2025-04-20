@@ -1,9 +1,11 @@
 import modal from './modal.js';
 import data from '../data.js';
 import utils from '../utils.js';
+import toggleMobileMenu from './mobileMenu.js';
 
 function logOutNav() {
   const nav = document.querySelector('#desktop-navigation');
+  logOutNavMobile();
   nav.innerHTML = '';
 
   const signInLi = document.createElement('li');
@@ -41,8 +43,15 @@ function logOutNav() {
     event.preventDefault();
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password').value;
+    const infoText = document.querySelector("#info-text-login");
+    infoText.innerText = "";
 
-    await data.loginUser(username, password);
+    const promise = await data.loginUser(username, password);
+    console.log("asd", promise);
+
+    if(promise === undefined){
+      infoText.innerText = "Virhe! Kirjautuminen ei onnistunut!"
+    }
   });
 
   const registerButton = document.querySelector('#register-button');
@@ -80,7 +89,6 @@ function logOutNav() {
       return;
     }
 
-    console.log(terms);
     //ACCEPT TERMS OF SERVICE!!!
     if (!terms) {
       infoText.innerText = 'Hyväksy käyttäjäehdot.';
@@ -96,7 +104,6 @@ function logOutNav() {
     } else {
       //USERNAME AVAILABLE PROCEED!
       const response = await data.registerUser(username, email, password);
-      console.log(response);
 
       if (response == 200) {
         modal.closeModal();
@@ -107,6 +114,58 @@ function logOutNav() {
           'Verkkovirhe, joku meni pieleen. Kokeile uudestaan.';
       }
     }
+  });
+}
+
+function logOutNavMobile(){
+  const nav = document.querySelector('#mobile-menu-modal');
+  nav.innerHTML = '';
+
+  //CLOSE BUTTON
+  const closeLi = document.createElement("li");
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("close-menu-button");
+  closeButton.innerHTML = "&#10006;";
+  closeLi.append(closeButton);
+
+  //SIGN IN BUTTON
+  const signInLi = document.createElement("li");
+  const signInButton = document.createElement("button");
+  signInButton.innerText = "Kirjaudu sisään";
+  signInButton.classList.add("menu-button");
+  signInLi.append(signInButton);
+
+  //REGISTER BUTTON
+  const signUpLi = document.createElement("li");
+  const signUpButton = document.createElement("button");
+  signUpButton.innerText = "Rekisteröidy";
+  signUpButton.classList.add("menu-button");
+  signUpLi.append(signUpButton);
+
+  const content = document.createElement("ul");
+  content.classList.add("list-strip");
+  content.append(closeLi, signInLi, signUpLi);
+  nav.append(content);
+
+  signInButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleMobileMenu();
+
+    modal.openModal();
+    modal.displaySignIn();
+  });
+
+  signUpButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleMobileMenu();
+
+    modal.openModal();
+    modal.displaySignUp();
+  });
+
+  closeButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleMobileMenu();
   });
 }
 

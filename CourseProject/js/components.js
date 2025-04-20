@@ -90,6 +90,7 @@ async function createContentCard(restaurant) {
   heartIcon.classList.add('heart-icon');
 
   try {
+    if(window.sessionStorage.getItem("token")){
     const info = await data.getUserData();
     const favouriteRestaurantId = info.favouriteRestaurant;
 
@@ -98,8 +99,9 @@ async function createContentCard(restaurant) {
       heartIcon.src = './img/heart-selected.png';
       heartIcon.alt =
         'Icon picture indicating that this is selected as a favourite restaurant.';
-    } else {
+    }else {
       removeLastHeartIcon(heartIcon);
+    }
     }
   } catch {
     removeLastHeartIcon(heartIcon);
@@ -125,7 +127,6 @@ async function createContentCard(restaurant) {
     heartIcon.alt =
       'Icon picture indicating that this is selected as a favourite restaurant.';
     data.addFavouriteRestaurant(restaurant._id);
-    console.log(restaurant.name + ' added to favourites.');
   });
 
   heartButton.append(heartIcon);
