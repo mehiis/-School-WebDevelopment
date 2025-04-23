@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    font-family: var(--font-sans);
+
+    color-scheme: light dark;
+    color: var(--color-stone-50);
+    background-color: var(--color-stone-700);
+  }
+
+  #root {
+    max-width: var(--container-7xl);
+    padding: calc(var(--spacing) * 8);
+  }
+}
