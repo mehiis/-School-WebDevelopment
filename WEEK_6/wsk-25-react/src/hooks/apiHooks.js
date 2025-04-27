@@ -21,6 +21,9 @@ function useMedia() {
     setMediaArray(newData);
   };
 
+  //modifyMedia{}
+  //deleteMedia{}
+
   console.log('mediaArray getMedia()', mediaArray);
 
   useEffect(() => {
@@ -134,4 +137,80 @@ const useFile = () => {
   return {postFile};
 };
 
-export {useMedia, useAuth, useUser, useFile};
+const useLike = () => {
+  const postLike = async (mediaId, token) => {
+    const data = {
+      media_id: mediaId,
+    };
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer: ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    await fetchData(import.meta.env.VITE_MEDIA_API + '/likes', fetchOptions);
+  };
+
+  const deleteLike = async (mediaId, token) => {
+    const fetchOptionsForUserData = {
+      headers: {
+        Authorization: 'Bearer: ' + token,
+      },
+    };
+
+    const fetchOptionsForDelete = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer: ' + token,
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const userData = await fetchData(
+      import.meta.env.VITE_MEDIA_API + `/likes/bymedia/user/${mediaId}`,
+      fetchOptionsForUserData,
+    );
+
+    await fetchData(
+      import.meta.env.VITE_MEDIA_API + `/likes/${userData.like_id}`,
+      fetchOptionsForDelete,
+    );
+  };
+
+  const getLikesByMediaId = async (mediaId) => {
+    //DONE
+    const data = await fetchData(
+      import.meta.env.VITE_MEDIA_API + `/likes/bymedia/${mediaId}`,
+    );
+
+    return data.length;
+  };
+
+  const getLikesByUser = async (mediaId, token) => {
+    //DONE
+    try {
+      const fetchOptions = {
+        headers: {
+          Authorization: 'Bearer: ' + token,
+        },
+      };
+
+      const data = await fetchData(
+        import.meta.env.VITE_MEDIA_API + `/likes/bymedia/user/${mediaId}`,
+        fetchOptions,
+      );
+
+      return Boolean(data);
+    } catch {
+      return false;
+    }
+  };
+
+  return {postLike, deleteLike, getLikesByMediaId, getLikesByUser};
+};
+
+export {useMedia, useAuth, useUser, useFile, useLike};

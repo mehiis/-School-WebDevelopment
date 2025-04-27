@@ -10,18 +10,18 @@ const Home = () => {
   console.log('mediaArray main', mediaArray);
   return (
     <>
-      <h2>My Media</h2>
+      <h2 className="ml-0 py-4 text-2xl font-bold">My Media</h2>
       <table>
         <thead>
-          <tr>
-            <th>Thumbnail</th>
-            <th>Owner</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created</th>
-            <th>Size</th>
-            <th>Type</th>
-            <th>Operations</th>
+          <tr className="*:border-2 *:border-[#ccc] *:p-4">
+            <th className="text-center">Thumbnail</th>
+            <th className="text-center">Owner</th>
+            <th className="text-center">Title</th>
+            <th className="text-center">Description</th>
+            <th className="text-center">Created</th>
+            <th className="text-center">Size</th>
+            <th className="text-center">Type</th>
+            <th className="text-center">Operations</th>
           </tr>
         </thead>
         <tbody>
