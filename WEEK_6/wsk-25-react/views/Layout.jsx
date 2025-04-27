@@ -13,9 +13,9 @@ const Layout = () => {
   return (
     <>
       <div>
-        <h1 className="text-ce m-4 text-2xl font-bold">My App</h1>
+        <h1 className="text-ce m-4 text-4xl font-bold">My App</h1>
         <nav className="mb-4">
-          <ul className="flex justify-end overflow-hidden bg-stone-900">
+          <ul className="flex justify-end gap-2 bg-stone-900">
             <li>
               <Link
                 className="block p-4 text-center text-stone-50 hover:bg-stone-600"
